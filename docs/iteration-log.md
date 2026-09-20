@@ -44,7 +44,7 @@ User objective: improve GPT-2 124M on Apple Silicon toward Jev-style typed proba
 
 ## Next experiments and finalization
 
-After C1 completes, inspect `training_report.json` and compare ONLY selection metrics and instruction probes. If learning is stable, run a bounded full-data candidate experiment at a conservative learning rate, recording original or warm-start source. Do not launch two GPU jobs. Prefer learning improvements over adding API surface.
+The active or latest experiment is the final entry in this log. Inspect its actual process and progress before launching anything. After completion, compare ONLY selection metrics and instruction probes. Prefer targeted learning improvements over adding API surface, and never launch two GPU jobs.
 
 Candidate experiments default to no calibration and no test. Choose the final candidate checkpoint using selection results; then run `python -m microjev.candidate_finalize --model runs/<selected>/best --output runs/candidate-final --data-dir ../../work/sst5` once. It calibrates on the distinct 551-row split and tests once without retraining. Stop tuning after consulting that final test.
 
@@ -97,3 +97,14 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - New `--selection-objective instruction-balanced` averages canonical mean NLL and the three held-out-phrasing probe NLLs. They are selection diagnostics repeatedly used for development, not an independent final instruction-following test. `selection_nll` remains canonical; `selection_score` explicitly records the chosen objective.
 - Plan: initialize from C2 epoch 1, reset optimizer, full 8,544 reviews, 2 epochs, batch 8 questions, LR 5e-6, smoothing 0.1, paired augmentation. This changes several factors as an exploratory improvement; do not attribute gains to one factor alone.
 - 30 local tests passed, including paired-label correctness, held-out phrasing separation and actual smoothed training loss without changing caller labels. A tiny full GPT-2 pipeline smoke run also exercises the new selection objective before launching C3.
+
+## Experiment C3: paired propositions with smoothing (RUNNING — inspect first)
+
+- Started 2026-09-21 01:05 local, detached PID **11164**. PID file: workspace `work/candidate-paired-v3.pid`; launch manifest: `work/candidate-paired-v3-launch.json`. C2 PID 85800 has exited.
+- Code revision: `fab9908498a2e051bf162c0d3c24eca1ecb195ee`. Runtime remains workspace `work/venv-mlx/bin/python`.
+- Command: `python -u -m microjev.candidate_sst5 --base-model runs/candidate-full-v2/best --source-kind candidate --data-dir ../../work/sst5 --output runs/candidate-paired-v3 --train-limit 0 --selection-limit 550 --epochs 2 --batch-size 8 --learning-rate 5e-6 --label-smoothing 0.1 --augmentation paired --selection-objective instruction-balanced`.
+- Warm-starts from C2's chosen epoch 1. That source already saw the original SST-5 training data in Baseline B and C2; this is additional training, not a fresh small-data result. Fresh optimizer, all model parameters trainable.
+- 8,544 reviews / 34,176 questions per epoch, 8,544 total updates. Expected 50–65 minutes, refine from log. Each row has canonical-style Choice/Score plus one varied proposition and its logical complement. No exact probe question is a training template.
+- Logs: workspace `work/candidate-paired-v3.log`; checkpoints/progress/report: `runs/candidate-paired-v3`. Calibration/test disabled. Do not finalize while still selecting experiments.
+- Before launch: all 30 local tests passed; full-GPT2 smoke run completed two updates, saved/reloaded, evaluated both selection groups, and verified the combined objective numerically. The tiny smoke output is diagnostic only, not a quality benchmark.
+- After C3: check both canonical NLL and each probe. The old C2 canonical average is 1.2684; its combined canonical/probe objective is about 1.4957. C1's majority-like predictions have lower raw NLL than C2, so compare accuracy and instruction behavior alongside NLL rather than claiming every change is an improvement.
