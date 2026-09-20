@@ -116,6 +116,29 @@ def instruction_probes(rows):
     return result
 
 
+def choice_probes(rows):
+    """Opaque candidate names and two/three/five-way semantic decisions."""
+    names = ("class_gamma", "class_beta", "class_epsilon", "class_alpha", "class_delta")
+    questions = {
+        "canonical": SCHEMA["sentiment"],
+        "opaque_three": {"type": "choice", "instructions": SCHEMA["sentiment"]["instructions"],
+                         "criteria": {"item_gamma": "Very negative or negative", "item_alpha": "Neutral",
+                                      "item_beta": "Positive or very positive"}},
+        "opaque_five": {"type": "choice", "instructions": "Pick the sentiment label for this review.",
+                        "criteria": dict(zip(names, SCHEMA["rating"]["criteria"]))},
+        "opaque_two": {"type": "choice", "instructions": "Select the description matching this review.",
+                       "criteria": {"item_alpha": "Positive or very positive", "item_beta": "Negative, very negative or neutral"}},
+    }
+    result = []
+    for row in rows:
+        rating = row["labels"]["rating"]
+        result.append({"state": row["text"], "questions": copy.deepcopy(questions), "labels": {
+            "canonical": row["labels"]["sentiment"],
+            "opaque_three": ("item_gamma", "item_gamma", "item_alpha", "item_beta", "item_beta")[rating],
+            "opaque_five": names[rating], "opaque_two": "item_alpha" if rating >= 3 else "item_beta"}})
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-model", default="openai-community/gpt2")

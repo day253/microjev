@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from dataclasses import replace
 
-from microjev.candidate_sst5 import PROPOSITION_PAIRS, instruction_probes, requests_from_rows
+from microjev.candidate_sst5 import PROPOSITION_PAIRS, choice_probes, instruction_probes, requests_from_rows
 from microjev.schema import targets
 from microjev.sst5 import convert
 
@@ -29,6 +29,14 @@ class CandidateDataTests(unittest.TestCase):
             labels = request["labels"]
             self.assertEqual(labels["not_positive"], not labels["positive_paraphrase"])
             targets(request["questions"], labels)
+
+    def test_dynamic_choice_probes_preserve_all_five_source_labels(self):
+        rows = [convert({"text": "review", "label": label}) for label in range(5)]
+        for label, request in enumerate(choice_probes(rows)):
+            expected = targets(request["questions"], request["labels"])
+            self.assertEqual(expected["canonical"], expected["opaque_three"])
+            self.assertEqual(expected["opaque_five"][label], 1.0)
+            self.assertEqual(expected["opaque_two"], [1.0, 0.0] if label >= 3 else [0.0, 1.0])
 
     def test_paired_requests_balance_truth_and_preserve_probe_phrasings(self):
         rows = [convert({"text": "review", "label": i % 5}) for i in range(60)]
@@ -137,6 +145,30 @@ class CandidateMLXTests(unittest.TestCase):
         for (_, a), (_, b) in zip(alone, padded):
             for x, y in zip(a, b):
                 self.assertAlmostEqual(x, y, delta=1e-5)
+
+    def test_prefix_cache_matches_full_scoring_across_chunks_and_requests(self):
+        from microjev.candidate import encode_requests, predict, score_sequences
+        sequences = [seq for group in encode_requests(self.model, self.tokenizer, self.requests, max_length=64)
+                     for seq in group.sequences]
+        direct, _ = score_sequences(self.model, sequences, 0, batch_size=16)
+        for batch_size in (1, 4, 16):
+            cached, length = score_sequences(self.model, sequences, 0, batch_size=batch_size, prefix_cache=True)
+            self.assertGreater(length, 0)
+            for a, b in zip(direct, cached):
+                self.assertAlmostEqual(a, b, delta=1e-5)
+        first = predict(self.model, self.tokenizer, "a", self.schema, max_length=64, prefix_cache=True)
+        predict(self.model, self.tokenizer, "b b b", self.schema, max_length=64, prefix_cache=True)
+        again = predict(self.model, self.tokenizer, "a", self.schema, max_length=64, prefix_cache=True)
+        self.assertEqual(first, again)
+        self.assertLess(first["metadata"]["tokens_processed"], first["metadata"]["logical_input_tokens"])
+
+    def test_prefix_cache_leaves_eos_for_identical_candidates(self):
+        from microjev.candidate import predict
+        schema = {"same": {"type": "score", "criteria": ["a", "a"]}}
+        direct = predict(self.model, self.tokenizer, "a", schema, max_length=64)
+        cached = predict(self.model, self.tokenizer, "a", schema, max_length=64, prefix_cache=True)
+        self.assertEqual(direct["answers"], cached["answers"])
+        self.assertEqual(cached["answers"]["same"]["score"], 0.5)
 
     def test_training_calibration_and_offline_roundtrip(self):
         from microjev.candidate import CandidateDecision, calibrate, evaluate, fit, predict

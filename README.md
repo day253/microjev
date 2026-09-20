@@ -6,7 +6,7 @@
 
 加载 GPT-2 预训练权重，用 MLX 训练结构化决策头，直接输出 **Choice / Noul / Score**。提供全量微调、仅训练决策头、模型保存与离线加载、概率校准和本机速度基准。另附一个零依赖的纯 Python 教学实现。
 
-新增[动态候选打分器](docs/candidate.md)：运行时输入状态、问题和候选描述，由同一个 GPT-2 标量打分头输出分布。已通过候选换序、问题 ID 改名、混合候选数量等本机测试。配对训练 C3 在选择集上的改写正面/负面问题准确率达到 82.91% / 85.64%，否定命题 64.18%；标准问题平均 NLL 降至 0.9348，仍弱于固定头基线。接口测试通过不代表通用指令能力。[实验报告](docs/benchmarks/candidate-paired-v3.json)
+新增[动态候选打分器](docs/candidate.md)：运行时输入状态、问题和候选描述，由同一个 GPT-2 标量打分头输出分布。已通过候选换序、问题 ID 改名、混合候选数量等本机测试。C4 在选择集上的改写正面/负面问题准确率为 83.27% / 84.36%，否定命题提升到 84.00%；标准问题平均 NLL 为 0.9377，仍弱于固定头基线。接口测试通过不代表通用指令能力。[实验报告](docs/benchmarks/candidate-boundary-v4.json)
 
 这是独立项目，受 [microgpt](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95) 和 [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) 启发。没有使用 Jev 权重，不是 Jev 内部架构或 RLCD 的复现。
 
@@ -46,7 +46,7 @@ python3 -m microjev demo --steps 300 --output runs/tiny.json
 
 一次编码输入，所有决策头读同一个隐藏向量；不需要生成或解析文本 JSON。返回的 Python 字典由程序按类型构造。
 
-以上是固定头后端 `microjev-mlx` 的路径。新后端 `microjev-candidate` 分别编码状态、问题与每个候选的组合，支持动态问题与候选，因此计算量随候选数增加；详见[架构和命令](docs/candidate.md)。
+以上是固定头后端 `microjev-mlx` 的路径。新后端 `microjev-candidate` 分别编码状态、问题与每个候选的组合，支持动态问题与候选。默认跨问题批量计算，可用 `--prefix-cache` 复用请求内共同前缀；实测长输入比相同批处理设置快约 5.1 倍，概率偏差低于 8e-7。详见[架构、限制和命令](docs/candidate.md)。
 
 Choice 和 Score 的 confidence 使用本项目定义的 `1 - normalized_entropy`。它不是正确率，也不声称与 TypeSafe 的 confidence 算法相同。校准使用 validation 集拟合每个问题的 softmax 温度，不能保证分布外概率可靠。
 

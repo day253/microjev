@@ -1,0 +1,71 @@
+{
+  "model": "runs/candidate-boundary-v4/best",
+  "split": "selection only",
+  "questions": {
+    "canonical": {
+      "type": "choice",
+      "instructions": "Classify the sentiment of the English movie review.",
+      "criteria": {
+        "negative": "Very negative or negative",
+        "neutral": "Neutral",
+        "positive": "Positive or very positive"
+      }
+    },
+    "opaque_three": {
+      "type": "choice",
+      "instructions": "Classify the sentiment of the English movie review.",
+      "criteria": {
+        "item_gamma": "Very negative or negative",
+        "item_alpha": "Neutral",
+        "item_beta": "Positive or very positive"
+      }
+    },
+    "opaque_five": {
+      "type": "choice",
+      "instructions": "Pick the sentiment label for this review.",
+      "criteria": {
+        "class_gamma": "Very negative",
+        "class_beta": "Negative",
+        "class_epsilon": "Neutral",
+        "class_alpha": "Positive",
+        "class_delta": "Very positive"
+      }
+    },
+    "opaque_two": {
+      "type": "choice",
+      "instructions": "Select the description matching this review.",
+      "criteria": {
+        "item_alpha": "Positive or very positive",
+        "item_beta": "Negative, very negative or neutral"
+      }
+    }
+  },
+  "metrics": {
+    "questions": {
+      "canonical": {
+        "count": 550,
+        "accuracy": 0.6945454545454546,
+        "nll": 0.8458911723156827,
+        "brier": 0.47579637540623065
+      },
+      "opaque_three": {
+        "count": 550,
+        "accuracy": 0.6854545454545454,
+        "nll": 0.902896076418708,
+        "brier": 0.5023812987529885
+      },
+      "opaque_five": {
+        "count": 550,
+        "accuracy": 0.49636363636363634,
+        "nll": 1.3691147398556125,
+        "brier": 0.7084913671350762
+      },
+      "opaque_two": {
+        "count": 550,
+        "accuracy": 0.7545454545454545,
+        "nll": 0.5130525077322445,
+        "brier": 0.327097546101986
+      }
+    }
+  }
+}

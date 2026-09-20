@@ -1,0 +1,188 @@
+{
+  "dataset": {
+    "source": "https://huggingface.co/datasets/SetFit/sst5",
+    "revision": "e51bdcd8cd3a30da231967c1a249ba59361279a3",
+    "raw_sha256": {
+      "train": "46bde4fb5abc93ffbadfa9a9f67de17c08a2f535cfb5756c59188d070434f433",
+      "dev": "4369df4d4229e736fa734af49b342c7d6002c4d8514d9c206a5aa26edc620b79",
+      "test": "1384216112a34f3d70b6fa210762f3399bb080410c0456ac6e54a5cb413f04b2"
+    },
+    "counts": {
+      "train": 8544,
+      "test": 2210,
+      "selection": 550,
+      "calibration": 551
+    },
+    "dev_shuffle_seed": 42,
+    "labels": "All three heads are supervised projections of the same SST-5 label; not independent tasks."
+  },
+  "config": {
+    "base_model": "runs/candidate-paired-v3/best",
+    "source_kind": "candidate",
+    "data_dir": "data/sst5",
+    "output": "runs/candidate-boundary-v4",
+    "train_limit": 0,
+    "selection_limit": 550,
+    "epochs": 1,
+    "batch_size": 8,
+    "learning_rate": 3e-06,
+    "label_smoothing": 0.15,
+    "augmentation": "boundary",
+    "selection_objective": "instruction-balanced",
+    "max_length": 192,
+    "seed": 42,
+    "calibrate": false,
+    "evaluate_test": false
+  },
+  "train_rows": 8544,
+  "selection_rows": 550,
+  "training": {
+    "steps": 4272,
+    "questions": 34176,
+    "seconds": 1359.409030666924,
+    "first_loss": 0.650288462638855,
+    "last_loss": 0.3323949873447418,
+    "mean_loss": 0.42740397949176334
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "training_loss": 0.42740397949176334,
+      "selection_nll": 0.9376860327704187,
+      "selection": {
+        "questions": {
+          "sentiment": {
+            "count": 550,
+            "accuracy": 0.6945454545454546,
+            "nll": 0.8458911723156827,
+            "brier": 0.47579637540623065
+          },
+          "positive": {
+            "count": 550,
+            "accuracy": 0.8290909090909091,
+            "nll": 0.443467573085213,
+            "brier": 0.2701488514209855
+          },
+          "rating": {
+            "count": 550,
+            "accuracy": 0.49454545454545457,
+            "nll": 1.5236993529103606,
+            "brier": 0.7747481966099973
+          }
+        }
+      },
+      "selection_score": 0.688635322201085,
+      "instruction_probes": {
+        "questions": {
+          "positive_paraphrase": {
+            "count": 550,
+            "accuracy": 0.8327272727272728,
+            "nll": 0.4312591230532601,
+            "brier": 0.26549985807747883
+          },
+          "negative_paraphrase": {
+            "count": 550,
+            "accuracy": 0.8436363636363636,
+            "nll": 0.4178589821436879,
+            "brier": 0.251250978702318
+          },
+          "not_positive": {
+            "count": 550,
+            "accuracy": 0.84,
+            "nll": 0.4696357296983057,
+            "brier": 0.2807801513712708
+          }
+        }
+      }
+    }
+  ],
+  "best_epoch": 1,
+  "instruction_probes": {
+    "questions": {
+      "positive_paraphrase": {
+        "count": 550,
+        "accuracy": 0.8327272727272728,
+        "nll": 0.4312591230532601,
+        "brier": 0.26549985807747883
+      },
+      "negative_paraphrase": {
+        "count": 550,
+        "accuracy": 0.8436363636363636,
+        "nll": 0.4178589821436879,
+        "brier": 0.251250978702318
+      },
+      "not_positive": {
+        "count": 550,
+        "accuracy": 0.84,
+        "nll": 0.4696357296983057,
+        "brier": 0.2807801513712708
+      }
+    }
+  },
+  "calibration": null,
+  "test": null,
+  "prediction": {
+    "state": "A wonderful film with moving performances and a brilliant story.",
+    "result": {
+      "model": "gpt2-jevlite-candidate",
+      "answers": {
+        "sentiment": {
+          "type": "choice",
+          "confidence": 0.6697310453712965,
+          "choice": "positive",
+          "probabilities": {
+            "negative": 0.04591322618909273,
+            "neutral": 0.043406470222877185,
+            "positive": 0.9106803035880301
+          }
+        },
+        "positive": {
+          "type": "noul",
+          "noul": 0.9090437687339891
+        },
+        "rating": {
+          "type": "score",
+          "confidence": 0.6531866144656435,
+          "score": 3.679799487936995,
+          "probabilities": {
+            "0": 0.03258411714664064,
+            "1": 0.03366029772208121,
+            "2": 0.027556741935948797,
+            "3": 0.03376966643830149,
+            "4": 0.8724291767570279
+          },
+          "legend": {
+            "0": "Very negative",
+            "1": "Negative",
+            "2": "Neutral",
+            "3": "Positive",
+            "4": "Very positive"
+          }
+        }
+      },
+      "metadata": {
+        "backend": "mlx",
+        "source": "runs/candidate-paired-v3/best",
+        "parameters": 124440576,
+        "candidate_count": 10,
+        "tokens_processed": 430,
+        "calibration": "unfitted",
+        "calibration_scope": "none",
+        "confidence_method": "one_minus_normalized_entropy",
+        "scoring": "independent_state_question_candidate_shared_scalar"
+      }
+    }
+  },
+  "inference_seconds_mean": 0.02305112520698458,
+  "inference_seconds_samples": [
+    0.023161167046055198,
+    0.023176209069788456,
+    0.023038874962367117,
+    0.022949666948989034,
+    0.022929708007723093
+  ],
+  "total_seconds": 1373.943925583968,
+  "checkpoint": "runs/candidate-boundary-v4/best",
+  "limitations": "English sentiment, derived questions from one source label. Runtime conditioning does not establish general instruction following. Candidate batching repeats state; no shared-prefix cache or Jev RLCD.",
+  "code_revision": "140464d30c48dd002ea92f5d7057e225afd00af1"
+}

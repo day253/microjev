@@ -15,6 +15,7 @@ import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optim
 from mlx_lm.models.gpt2 import GPT2Model, ModelArgs
+from mlx_lm.models.cache import KVCache
 from transformers import AutoTokenizer
 
 from .autograd import cross_entropy, softmax
@@ -34,8 +35,8 @@ class CandidateDecision(nn.Module):
         self.calibration_scope = "none"
         self.source = "random"
 
-    def __call__(self, tokens, lengths):
-        hidden = self.backbone(tokens)
+    def __call__(self, tokens, lengths, cache=None):
+        hidden = self.backbone(tokens, cache=cache)
         return self.scorer(hidden[mx.arange(tokens.shape[0]), lengths - 1]).squeeze(-1)
 
     @classmethod
@@ -239,29 +240,64 @@ def calibrate(model, tokenizer, requests, max_length=192, scope="supplied calibr
     return {"temperatures": dict(model.temperatures), "before": before, "after": metrics_from_logits(model, results)}
 
 
-def predict(model, tokenizer, state, questions, max_length=192, candidate_batch_size=16):
+def common_prefix_length(sequences):
+    # Leave at least the final EOS to score, including for identical candidates.
+    limit = min(map(len, sequences)) - 1
+    for position in range(limit):
+        token = sequences[0][position]
+        if any(sequence[position] != token for sequence in sequences[1:]):
+            return position
+    return limit
+
+
+def score_sequences(model, sequences, pad_id, batch_size=16, prefix_cache=False):
+    """Batched scoring; caches are local to this call and never cross requests."""
+    if batch_size < 1 or not sequences or any(not sequence for sequence in sequences):
+        raise ValueError("nonempty sequences and a positive batch_size are required")
+    prefix_length = common_prefix_length(sequences) if prefix_cache else 0
+    shared_cache = None
+    if prefix_length:
+        shared_cache = [KVCache() for _ in range(model.args.n_layer)]
+        model.backbone(mx.array([sequences[0][:prefix_length]], dtype=mx.int32), cache=shared_cache)
+        mx.eval([cache.state for cache in shared_cache])
+    values = []
+    for offset in range(0, len(sequences), batch_size):
+        batch = [seq[prefix_length:] for seq in sequences[offset:offset + batch_size]]
+        chunk = EncodedQuestion("", {}, batch, None)
+        tokens, lengths, _, _ = batchify([chunk], pad_id)
+        cache = None
+        if shared_cache is not None:
+            cache = []
+            for shared in shared_cache:
+                branch = KVCache()
+                branch.state = tuple(mx.repeat(value, len(batch), axis=0) for value in shared.state)
+                cache.append(branch)
+        scores = model(tokens, lengths, cache=cache)
+        mx.eval(scores)
+        values.extend(scores.tolist())
+    return values, prefix_length
+
+
+def predict(model, tokenizer, state, questions, max_length=192, candidate_batch_size=16, prefix_cache=False):
     if candidate_batch_size < 1:
         raise ValueError("candidate_batch_size must be positive")
     groups = encode_requests(model, tokenizer, [{"state": state, "questions": questions}], max_length, labeled=False)
     model.eval()
-    answers, tokens_processed, candidate_count = {}, 0, 0
+    sequences = [seq for group in groups for seq in group.sequences]
+    all_values, prefix_length = score_sequences(model, sequences, tokenizer.eos_token_id, candidate_batch_size, prefix_cache)
+    answers, offset = {}, 0
     for group in groups:
-        values = []
-        # Bound memory even when a Choice supplies 255 candidates.
-        for offset in range(0, len(group.sequences), candidate_batch_size):
-            sequences = group.sequences[offset:offset + candidate_batch_size]
-            chunk = EncodedQuestion(group.key, group.question, sequences, None)
-            tokens, lengths, _, _ = batchify([chunk], tokenizer.eos_token_id)
-            scores = model(tokens, lengths)
-            mx.eval(scores)
-            values.extend(scores.tolist())
+        values = all_values[offset:offset + len(group.sequences)]
+        offset += len(group.sequences)
         scaled = [v / model.temperatures[group.question["type"]] for v in values]
         answers[group.key] = answer(group.question, softmax(scaled))
-        tokens_processed += sum(map(len, group.sequences))
-        candidate_count += len(group.sequences)
+    logical_tokens = sum(map(len, sequences))
+    tokens_processed = logical_tokens - prefix_length * (len(sequences) - 1)
     return {"model": "gpt2-jevlite-candidate", "answers": answers,
             "metadata": {"backend": "mlx", "source": model.source, "parameters": parameter_count(model),
-                         "candidate_count": candidate_count, "tokens_processed": tokens_processed,
+                         "candidate_count": len(sequences), "tokens_processed": tokens_processed,
+                         "logical_input_tokens": logical_tokens, "shared_prefix_tokens": prefix_length,
+                         "prefix_cache": bool(prefix_length),
                          "calibration": model.calibration, "calibration_scope": model.calibration_scope,
                          "confidence_method": "one_minus_normalized_entropy",
                          "scoring": "independent_state_question_candidate_shared_scalar"}}

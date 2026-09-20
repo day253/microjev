@@ -1,0 +1,214 @@
+{
+  "checkpoint": "runs/candidate-boundary-v4/best",
+  "config": {
+    "model": "runs/candidate-boundary-v4/best",
+    "output": "docs/benchmarks/candidate-inference.json",
+    "warmup": 3,
+    "repeats": 10,
+    "candidate_batch_size": 16
+  },
+  "cases": {
+    "short": {
+      "state_tokens": 11,
+      "candidate_count": 10,
+      "logical_tokens": 430,
+      "modes": {
+        "serial_questions": {
+          "mean_seconds": 0.022165979188866914,
+          "median_seconds": 0.022142729547340423,
+          "samples_seconds": [
+            0.02222325000911951,
+            0.02208362508099526,
+            0.022160334046930075,
+            0.02222924993839115,
+            0.02212512504775077,
+            0.02232045796699822,
+            0.022109791985712945,
+            0.022090249927714467,
+            0.022119499975815415,
+            0.02219820790924132
+          ],
+          "shared_prefix_tokens": 0,
+          "forward_tokens": 430,
+          "max_logit_difference": 0.0,
+          "max_probability_difference": 0.0
+        },
+        "batched": {
+          "mean_seconds": 0.01706869578920305,
+          "median_seconds": 0.017061707971151918,
+          "samples_seconds": [
+            0.017138707917183638,
+            0.01704670791514218,
+            0.017042042105458677,
+            0.017076708027161658,
+            0.017019874998368323,
+            0.017130417050793767,
+            0.016980833956040442,
+            0.017032374977134168,
+            0.017106582992710173,
+            0.017112707952037454
+          ],
+          "shared_prefix_tokens": 0,
+          "forward_tokens": 430,
+          "max_logit_difference": 0.0,
+          "max_probability_difference": 0.0
+        },
+        "batched_prefix_cache": {
+          "mean_seconds": 0.018275816820096224,
+          "median_seconds": 0.018258521042298526,
+          "samples_seconds": [
+            0.018217917066067457,
+            0.018186792032793164,
+            0.018237167038023472,
+            0.018366417032666504,
+            0.018350375001318753,
+            0.01841870800126344,
+            0.01819179195445031,
+            0.018289542058482766,
+            0.0182195829693228,
+            0.01827987504657358
+          ],
+          "shared_prefix_tokens": 18,
+          "forward_tokens": 268,
+          "max_logit_difference": 1.9073486328125e-06,
+          "max_probability_difference": 1.9713229154616485e-07
+        }
+      }
+    },
+    "medium": {
+      "state_tokens": 131,
+      "candidate_count": 10,
+      "logical_tokens": 1630,
+      "modes": {
+        "serial_questions": {
+          "mean_seconds": 0.059066716697998345,
+          "median_seconds": 0.05907612503506243,
+          "samples_seconds": [
+            0.05903249990660697,
+            0.058866666979156435,
+            0.05906391702592373,
+            0.059098083060234785,
+            0.05893575004301965,
+            0.05902654200326651,
+            0.05917095788754523,
+            0.059088333044201136,
+            0.05913195898756385,
+            0.05925245804246515
+          ],
+          "shared_prefix_tokens": 0,
+          "forward_tokens": 1630,
+          "max_logit_difference": 0.0,
+          "max_probability_difference": 0.0
+        },
+        "batched": {
+          "mean_seconds": 0.05556809171102941,
+          "median_seconds": 0.055586625006981194,
+          "samples_seconds": [
+            0.055578375002369285,
+            0.0554950840305537,
+            0.055650750058703125,
+            0.055576832965016365,
+            0.055382334045134485,
+            0.055597875034436584,
+            0.0555948750115931,
+            0.055571540957316756,
+            0.05561962502542883,
+            0.05561362497974187
+          ],
+          "shared_prefix_tokens": 0,
+          "forward_tokens": 1630,
+          "max_logit_difference": 2.86102294921875e-06,
+          "max_probability_difference": 2.601488843234634e-07
+        },
+        "batched_prefix_cache": {
+          "mean_seconds": 0.02257706259842962,
+          "median_seconds": 0.02259472949663177,
+          "samples_seconds": [
+            0.022615459049120545,
+            0.022344790981151164,
+            0.02260216698050499,
+            0.02255754207726568,
+            0.022624957957305014,
+            0.022563750040717423,
+            0.022587292012758553,
+            0.022671749931760132,
+            0.022635041968896985,
+            0.022567874984815717
+          ],
+          "shared_prefix_tokens": 138,
+          "forward_tokens": 388,
+          "max_logit_difference": 2.86102294921875e-06,
+          "max_probability_difference": 7.915460109586547e-07
+        }
+      }
+    },
+    "long": {
+      "state_tokens": 561,
+      "candidate_count": 10,
+      "logical_tokens": 5930,
+      "modes": {
+        "serial_questions": {
+          "mean_seconds": 0.20099644170841202,
+          "median_seconds": 0.20098066696664318,
+          "samples_seconds": [
+            0.20097224996425211,
+            0.20093141600955278,
+            0.20093125000130385,
+            0.20093179203104228,
+            0.20102237502578646,
+            0.20098908396903425,
+            0.20102795807179064,
+            0.2010512079577893,
+            0.20096341706812382,
+            0.20114366698544472
+          ],
+          "shared_prefix_tokens": 0,
+          "forward_tokens": 5930,
+          "max_logit_difference": 0.0,
+          "max_probability_difference": 0.0
+        },
+        "batched": {
+          "mean_seconds": 0.19712761258706452,
+          "median_seconds": 0.19711712445132434,
+          "samples_seconds": [
+            0.19720995903480798,
+            0.1970443339087069,
+            0.1971164159476757,
+            0.19708804204128683,
+            0.19709254195913672,
+            0.19718775001820177,
+            0.1969957920955494,
+            0.19711783295497298,
+            0.19723774993326515,
+            0.1971857079770416
+          ],
+          "shared_prefix_tokens": 0,
+          "forward_tokens": 5930,
+          "max_logit_difference": 0.0,
+          "max_probability_difference": 0.0
+        },
+        "batched_prefix_cache": {
+          "mean_seconds": 0.038895445701200515,
+          "median_seconds": 0.03893285401863977,
+          "samples_seconds": [
+            0.03893483302090317,
+            0.038557040970772505,
+            0.038930875016376376,
+            0.03885458305012435,
+            0.03883537498768419,
+            0.03896808298304677,
+            0.03904187504667789,
+            0.038927959045395255,
+            0.03894849994685501,
+            0.03895533294416964
+          ],
+          "shared_prefix_tokens": 568,
+          "forward_tokens": 818,
+          "max_logit_difference": 3.337860107421875e-06,
+          "max_probability_difference": 2.8047374324435825e-07
+        }
+      }
+    }
+  },
+  "scope": "GPU-synchronized scoring only; excludes tokenization and JSON construction. Long repeated text tests speed/equivalence, not language quality. Prefix caching is per request, not cross-request reuse."
+}

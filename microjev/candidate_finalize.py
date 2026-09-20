@@ -5,7 +5,7 @@ import json
 import time
 from pathlib import Path
 
-from .candidate_sst5 import requests_from_rows
+from .candidate_sst5 import choice_probes, instruction_probes, requests_from_rows
 from .sst5 import prepare
 
 
@@ -24,10 +24,13 @@ def main():
     splits, manifest = prepare(args.data_dir, seed=42)
     model, tokenizer = CandidateDecision.load(args.model)
     calibration = calibrate(model, tokenizer, requests_from_rows(splits["calibration"]), args.max_length,
-                            scope="SST-5 canonical sentiment/positive/rating questions; other questions unvalidated")
+                            scope="Temperature fitted on SST-5 canonical sentiment/positive/rating; no general calibration guarantee for other questions")
     test = evaluate(model, tokenizer, requests_from_rows(splits["test"]), args.max_length)
+    instruction_test = evaluate(model, tokenizer, instruction_probes(splits["test"]), args.max_length)
+    choice_test = evaluate(model, tokenizer, choice_probes(splits["test"]), args.max_length)
     model.save(output, tokenizer)
     report = {"config": vars(args), "dataset": manifest, "calibration": calibration, "test": test,
+              "instruction_test": instruction_test, "dynamic_choice_test": choice_test,
               "seconds": time.perf_counter() - started, "checkpoint": str(output),
               "selection_policy": "The input checkpoint must be selected before running this command. Test scores are not for further tuning."}
     (output / "final_report.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")

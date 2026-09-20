@@ -127,7 +127,7 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - Retain C3 as the current best candidate. C4 will continue from its epoch 1 for just one epoch (previous second epochs repeatedly worsened NLL), LR 3e-6, smoothing 0.15. Treat this as an exploratory combined intervention, not a controlled estimate of one technique.
 - All 31 local tests passed, including boundary-target consistency and full-cycle held-out-phrase checks.
 
-## Experiment C4: boundary clauses (RUNNING — inspect first)
+## Experiment C4: boundary clauses (complete; best candidate so far)
 
 - Started 2026-09-21 02:06 local, detached PID **36346**. PID file: workspace `work/candidate-boundary-v4.pid`; launch manifest: `work/candidate-boundary-v4-launch.json`.
 - Code revision: `140464d30c48dd002ea92f5d7057e225afd00af1`. All previous training processes have exited.
@@ -136,3 +136,28 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - Logs: workspace `work/candidate-boundary-v4.log`; checkpoint/progress/final report: `runs/candidate-boundary-v4`. Calibration/test disabled.
 - C3 remains the best candidate unless C4 selection evidence improves it. Reference C3 canonical NLL 0.9348, balanced selection score 0.7298, not-positive probe accuracy 64.18%. Repeat wording diagnostic on C4 only after the GPU training job exits.
 - Once model quality stabilizes, also investigate inference cost: batching candidates across questions and optional shared-prefix caching. Validate identical probabilities and candidate-order behavior before accepting an optimization; benchmark cached vs uncached with the same batching so gains are not misattributed. Never run GPU benchmarks concurrently with training.
+
+### C4 outcome
+
+- Completed around 02:29 local; total 1,373.94 seconds (22m54s), training loop including evaluation/save 1,359.41 seconds. PID 36346 has exited.
+- Canonical mean NLL 0.9377, balanced selection score 0.6886 (improves C3's 0.7298). Canonical accuracy: sentiment 69.45%, positive 82.91%, rating 49.45%. These canonical accuracies did not improve; fixed-head Baseline B remains better for its fixed questions.
+- Probe accuracy: positive paraphrase 83.27%, negative paraphrase 84.36%, not-positive 84.00%. Corresponding NLL: 0.4313 / 0.4179 / 0.4696. The targeted negation-with-boundary failure improved from C3's 64.18%.
+- Report: `docs/benchmarks/candidate-boundary-v4.json`; retained checkpoint: `runs/candidate-boundary-v4/best`. All candidate calibration/test splits remain untouched.
+
+## Inference optimization (implemented and measured; no weight changes)
+
+- `predict` now batches candidate sequences across questions. Optional `--prefix-cache` computes their longest common token prefix once, then creates independent K/V branches per candidate batch. Cache objects are request-local; leave final EOS un-cached even for identical candidates.
+- 33 local tests passed, including direct/cached logit equivalence for several chunk sizes, identical candidates, and separate requests without cache contamination. Existing candidate-order and offline save/load tests passed.
+- Reproducible benchmark: `python -m microjev.candidate_benchmark --model runs/candidate-boundary-v4/best --output <report.json>`. Three warmups and ten measured repeats per variant, rotating mode order. GPU-synchronized scoring excludes tokenization and JSON construction; long repeated text is performance-only, not a quality result.
+- Scoring times (serial question batches / shared batch / shared batch with prefix cache): 11-token state 22.17 / 17.07 / 18.28 ms; 131-token state 59.07 / 55.57 / 22.58 ms; 561-token state 201.00 / 197.13 / 38.89 ms.
+- Maximum probability difference from serial scoring across measured variants was 7.92e-7. Prefix caching is slower on the short case, so remains opt-in; batching is default. Benchmark: `docs/benchmarks/candidate-inference.json`.
+- Before final model selection, audit opaque Choice names and different candidate counts using only selection rows. Runtime schema support alone is not evidence of semantic generalization to unseen labels. Currently no training process is running.
+
+## Model selection frozen: C4 selected for final candidate release
+
+- Decision made before any candidate calibration or test evaluation. C4 has the best balanced selection score (0.6886 vs C3 0.7298) and much stronger negation-with-boundary behavior (84.00% vs 64.18%). Keep fixed-head B separately for its stronger canonical sentiment metrics. This is a bounded prototype selection, not a claim of globally optimal weights.
+- Selection-only opaque Choice audit: canonical three-way accuracy 69.45%, opaque-name three-way 68.55%, opaque-name five-way 49.64%, opaque-name binary 75.45%. The close three-way result supports semantic description use on this task. Report: `docs/benchmarks/candidate-v4-choice-diagnostic.json`.
+- No further training or hyperparameter search after the upcoming final test. Any future training must be a separately scoped experiment with fresh evaluation discipline; do not let the remaining overnight schedule restart optimization against observed test metrics.
+- Finalization will fit temperatures on the untouched 551-row calibration split and evaluate canonical questions, held-out instruction phrasings and dynamic Choice schemas on the 2,210-row test split as one final assessment. These test reports are for reporting, not model selection.
+- Inference implementation now has 34 passing local tests, including dynamic Choice source-label mappings. The shared-cache benchmark changes no weights; observed probability deltas remain under 8e-7.
+- Pending deliverables: run finalization once, write model card and local usage commands, verify offline inference and numeric/cache equivalence on the final saved model, publish code/reports, and keep the checkout clean with CI green. Once done, remain quiet on unchanged heartbeats and give the promised morning summary by 08:00.
