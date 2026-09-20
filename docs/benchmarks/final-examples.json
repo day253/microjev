@@ -1,0 +1,179 @@
+[
+  {
+    "state": "A wonderful film with moving performances and a brilliant story.",
+    "result": {
+      "model": "gpt2-jevlite-candidate",
+      "answers": {
+        "sentiment": {
+          "type": "choice",
+          "confidence": 0.3973044814744331,
+          "choice": "positive",
+          "probabilities": {
+            "negative": 0.10763452835568238,
+            "neutral": 0.1036802539723886,
+            "positive": 0.7886852176719291
+          }
+        },
+        "positive": {
+          "type": "noul",
+          "noul": 0.8226895194832166
+        },
+        "rating": {
+          "type": "score",
+          "confidence": 0.20202165813178485,
+          "score": 2.9147764580065867,
+          "probabilities": {
+            "0": 0.10954750418232533,
+            "1": 0.11134186325118019,
+            "2": 0.10074266674869656,
+            "3": 0.11152260201317844,
+            "4": 0.5668453638046195
+          },
+          "legend": {
+            "0": "Very negative",
+            "1": "Negative",
+            "2": "Neutral",
+            "3": "Positive",
+            "4": "Very positive"
+          }
+        },
+        "not_positive": {
+          "type": "noul",
+          "noul": 0.1653403557119388
+        }
+      },
+      "metadata": {
+        "backend": "mlx",
+        "source": "runs/candidate-paired-v3/best",
+        "parameters": 124440576,
+        "candidate_count": 12,
+        "tokens_processed": 524,
+        "logical_input_tokens": 524,
+        "shared_prefix_tokens": 0,
+        "prefix_cache": false,
+        "calibration": "temperature_fitted_by_type",
+        "calibration_scope": "Temperature fitted on SST-5 canonical sentiment/positive/rating; no general calibration guarantee for other questions",
+        "confidence_method": "one_minus_normalized_entropy",
+        "scoring": "independent_state_question_candidate_shared_scalar"
+      }
+    }
+  },
+  {
+    "state": "A tedious and disappointing movie that wastes its talented cast.",
+    "result": {
+      "model": "gpt2-jevlite-candidate",
+      "answers": {
+        "sentiment": {
+          "type": "choice",
+          "confidence": 0.33376316250951377,
+          "choice": "negative",
+          "probabilities": {
+            "negative": 0.7519233816716379,
+            "neutral": 0.11869971325377807,
+            "positive": 0.12937690507458402
+          }
+        },
+        "positive": {
+          "type": "noul",
+          "noul": 0.1852245641474735
+        },
+        "rating": {
+          "type": "score",
+          "confidence": 0.17028742264984587,
+          "score": 1.08739582900679,
+          "probabilities": {
+            "0": 0.5232725961525868,
+            "1": 0.17716544319010827,
+            "2": 0.09481981286260059,
+            "3": 0.0983778310873368,
+            "4": 0.10636431670736753
+          },
+          "legend": {
+            "0": "Very negative",
+            "1": "Negative",
+            "2": "Neutral",
+            "3": "Positive",
+            "4": "Very positive"
+          }
+        },
+        "not_positive": {
+          "type": "noul",
+          "noul": 0.7753841997195428
+        }
+      },
+      "metadata": {
+        "backend": "mlx",
+        "source": "runs/candidate-paired-v3/best",
+        "parameters": 124440576,
+        "candidate_count": 12,
+        "tokens_processed": 524,
+        "logical_input_tokens": 524,
+        "shared_prefix_tokens": 0,
+        "prefix_cache": false,
+        "calibration": "temperature_fitted_by_type",
+        "calibration_scope": "Temperature fitted on SST-5 canonical sentiment/positive/rating; no general calibration guarantee for other questions",
+        "confidence_method": "one_minus_normalized_entropy",
+        "scoring": "independent_state_question_candidate_shared_scalar"
+      }
+    }
+  },
+  {
+    "state": "The movie has some good scenes, but the rest is ordinary.",
+    "result": {
+      "model": "gpt2-jevlite-candidate",
+      "answers": {
+        "sentiment": {
+          "type": "choice",
+          "confidence": 0.22988657056260953,
+          "choice": "neutral",
+          "probabilities": {
+            "negative": 0.13671247202486025,
+            "neutral": 0.6794033314441797,
+            "positive": 0.18388419653096008
+          }
+        },
+        "positive": {
+          "type": "noul",
+          "noul": 0.14237483287636477
+        },
+        "rating": {
+          "type": "score",
+          "confidence": 0.133239346667276,
+          "score": 2.0845853425896013,
+          "probabilities": {
+            "0": 0.10985241290498539,
+            "1": 0.12520162926842174,
+            "2": 0.4904635085442267,
+            "3": 0.11947310089673806,
+            "4": 0.155009348385628
+          },
+          "legend": {
+            "0": "Very negative",
+            "1": "Negative",
+            "2": "Neutral",
+            "3": "Positive",
+            "4": "Very positive"
+          }
+        },
+        "not_positive": {
+          "type": "noul",
+          "noul": 0.7454500759846322
+        }
+      },
+      "metadata": {
+        "backend": "mlx",
+        "source": "runs/candidate-paired-v3/best",
+        "parameters": 124440576,
+        "candidate_count": 12,
+        "tokens_processed": 548,
+        "logical_input_tokens": 548,
+        "shared_prefix_tokens": 0,
+        "prefix_cache": false,
+        "calibration": "temperature_fitted_by_type",
+        "calibration_scope": "Temperature fitted on SST-5 canonical sentiment/positive/rating; no general calibration guarantee for other questions",
+        "confidence_method": "one_minus_normalized_entropy",
+        "scoring": "independent_state_question_candidate_shared_scalar"
+      }
+    }
+  }
+]

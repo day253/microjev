@@ -4,9 +4,11 @@
 
 **GPT-2 124M + Jev-style typed decisions, trained locally on Apple Silicon.**
 
+已完成本机训练、独立校准和最终测试。现成动态模型位于 `runs/candidate-final`，详见[模型说明、实际效果和运行命令](docs/model-card.md)。
+
 加载 GPT-2 预训练权重，用 MLX 训练结构化决策头，直接输出 **Choice / Noul / Score**。提供全量微调、仅训练决策头、模型保存与离线加载、概率校准和本机速度基准。另附一个零依赖的纯 Python 教学实现。
 
-新增[动态候选打分器](docs/candidate.md)：运行时输入状态、问题和候选描述，由同一个 GPT-2 标量打分头输出分布。已通过候选换序、问题 ID 改名、混合候选数量等本机测试。C4 在选择集上的改写正面/负面问题准确率为 83.27% / 84.36%，否定命题提升到 84.00%；标准问题平均 NLL 为 0.9377，仍弱于固定头基线。接口测试通过不代表通用指令能力。[实验报告](docs/benchmarks/candidate-boundary-v4.json)
+新增[动态候选打分器](docs/candidate.md)：运行时输入状态、问题和候选描述，由同一个 GPT-2 标量打分头输出分布。已通过候选换序、问题 ID 改名、混合候选数量等本机测试。最终在 2,210 条独立测试影评上，标准正面命题准确率 87.19%，正面/负面改写为 86.83% / 83.08%，否定命题 86.43%。标准三分类为 71.54%，仍弱于固定头基线；这里验证的是英文情感决策，不能外推到通用指令能力。[最终报告](docs/benchmarks/candidate-final.json)
 
 这是独立项目，受 [microgpt](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95) 和 [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) 启发。没有使用 Jev 权重，不是 Jev 内部架构或 RLCD 的复现。
 

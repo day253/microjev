@@ -1,0 +1,9 @@
+{
+  "checkpoint": "runs/candidate-final",
+  "offline": true,
+  "selection_rows_for_numerical_checks": 32,
+  "max_probability_difference_cache_chunking_permutation_and_question_id_rename": 2.578158491417515e-06,
+  "model_safetensors_bytes": 497776897,
+  "model_safetensors_sha256": "513720cba538d380b624cefa38211be9656a38998eb8d413912e7fd0cb75aa50",
+  "parameters": 124440576
+}

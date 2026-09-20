@@ -1,0 +1,152 @@
+{
+  "config": {
+    "model": "runs/candidate-boundary-v4/best",
+    "output": "runs/candidate-final",
+    "data_dir": "data/sst5",
+    "max_length": 192
+  },
+  "dataset": {
+    "source": "https://huggingface.co/datasets/SetFit/sst5",
+    "revision": "e51bdcd8cd3a30da231967c1a249ba59361279a3",
+    "raw_sha256": {
+      "train": "46bde4fb5abc93ffbadfa9a9f67de17c08a2f535cfb5756c59188d070434f433",
+      "dev": "4369df4d4229e736fa734af49b342c7d6002c4d8514d9c206a5aa26edc620b79",
+      "test": "1384216112a34f3d70b6fa210762f3399bb080410c0456ac6e54a5cb413f04b2"
+    },
+    "counts": {
+      "train": 8544,
+      "test": 2210,
+      "selection": 550,
+      "calibration": 551
+    },
+    "dev_shuffle_seed": 42,
+    "labels": "All three heads are supervised projections of the same SST-5 label; not independent tasks."
+  },
+  "calibration": {
+    "temperatures": {
+      "choice": 1.5,
+      "noul": 1.5,
+      "score": 2.0
+    },
+    "before": {
+      "questions": {
+        "sentiment": {
+          "count": 551,
+          "accuracy": 0.6878402903811253,
+          "nll": 0.8763094470794025,
+          "brier": 0.4894355658422009
+        },
+        "positive": {
+          "count": 551,
+          "accuracy": 0.8457350272232305,
+          "nll": 0.4027591226774101,
+          "brier": 0.24233736547757884
+        },
+        "rating": {
+          "count": 551,
+          "accuracy": 0.47186932849364793,
+          "nll": 1.6151948037304409,
+          "brier": 0.8126078444093235
+        }
+      }
+    },
+    "after": {
+      "questions": {
+        "sentiment": {
+          "count": 551,
+          "accuracy": 0.6878402903811253,
+          "nll": 0.7971658898479835,
+          "brier": 0.4535771548672752
+        },
+        "positive": {
+          "count": 551,
+          "accuracy": 0.8457350272232305,
+          "nll": 0.3974524052048157,
+          "brier": 0.238563411800511
+        },
+        "rating": {
+          "count": 551,
+          "accuracy": 0.47186932849364793,
+          "nll": 1.3703762563913309,
+          "brier": 0.6908636242938453
+        }
+      }
+    }
+  },
+  "test": {
+    "questions": {
+      "sentiment": {
+        "count": 2210,
+        "accuracy": 0.7153846153846154,
+        "nll": 0.7530726896994727,
+        "brier": 0.4244311731547635
+      },
+      "positive": {
+        "count": 2210,
+        "accuracy": 0.8719457013574661,
+        "nll": 0.3629350611836776,
+        "brier": 0.21000264167099533
+      },
+      "rating": {
+        "count": 2210,
+        "accuracy": 0.5108597285067873,
+        "nll": 1.3075236950397426,
+        "brier": 0.658663775316833
+      }
+    }
+  },
+  "instruction_test": {
+    "questions": {
+      "positive_paraphrase": {
+        "count": 2210,
+        "accuracy": 0.8683257918552036,
+        "nll": 0.3997149593123467,
+        "brier": 0.2339772671184478
+      },
+      "negative_paraphrase": {
+        "count": 2210,
+        "accuracy": 0.8307692307692308,
+        "nll": 0.4343451842279566,
+        "brier": 0.2667372613480372
+      },
+      "not_positive": {
+        "count": 2210,
+        "accuracy": 0.8642533936651584,
+        "nll": 0.4169634071389574,
+        "brier": 0.24723490716823127
+      }
+    }
+  },
+  "dynamic_choice_test": {
+    "questions": {
+      "canonical": {
+        "count": 2210,
+        "accuracy": 0.7153846153846154,
+        "nll": 0.7530726896994727,
+        "brier": 0.4244311731547635
+      },
+      "opaque_three": {
+        "count": 2210,
+        "accuracy": 0.6914027149321267,
+        "nll": 0.8138005914998971,
+        "brier": 0.45850770114726214
+      },
+      "opaque_five": {
+        "count": 2210,
+        "accuracy": 0.5031674208144796,
+        "nll": 1.3007699010331313,
+        "brier": 0.66804142787788
+      },
+      "opaque_two": {
+        "count": 2210,
+        "accuracy": 0.7742081447963801,
+        "nll": 0.4455701801522751,
+        "brier": 0.28189188953453287
+      }
+    }
+  },
+  "seconds": 161.30280945799313,
+  "checkpoint": "runs/candidate-final",
+  "selection_policy": "The input checkpoint must be selected before running this command. Test scores are not for further tuning.",
+  "code_revision": "850b6c42908838b2528e5480506bd6e3352606c3"
+}
