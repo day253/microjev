@@ -46,6 +46,26 @@ class CandidateDataTests(unittest.TestCase):
         probe_phrasings = {q["instructions"] for q in instruction_probes(rows[:1])[0]["questions"].values()}
         self.assertFalse(training_phrasings & probe_phrasings)
 
+    def test_boundary_clauses_are_consistent_with_predicates_and_complements(self):
+        rows = [convert({"text": "review", "label": i % 5}) for i in range(432)]
+        requests = requests_from_rows(rows, augment=True, augmentation="boundary")
+        phrasings = set()
+        for i, request in enumerate(requests):
+            predicate, rating = i % 3, i % 5
+            expected = (rating >= 3, rating <= 1, rating == 2)[predicate]
+            self.assertEqual(request["labels"]["positive"], expected)
+            self.assertEqual(request["labels"]["complement"], not expected)
+            targets(request["questions"], request["labels"])
+            if (i // 12) % 4:
+                category = (i // 48) % 3
+                for key, truth in (("positive", predicate == category), ("complement", predicate != category)):
+                    text = request["questions"][key]["instructions"]
+                    self.assertIn(str(truth).lower() + ".", text)
+            phrasings.update(q["instructions"] for q in request["questions"].values())
+        probes = {q["instructions"] for q in instruction_probes(rows[:1])[0]["questions"].values()}
+        self.assertFalse(phrasings & probes)
+        self.assertGreater(len(phrasings), 100)
+
 
 HAS_MLX = importlib.util.find_spec("mlx") is not None and importlib.util.find_spec("mlx_lm") is not None
 

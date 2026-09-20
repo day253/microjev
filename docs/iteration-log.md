@@ -98,7 +98,7 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - Plan: initialize from C2 epoch 1, reset optimizer, full 8,544 reviews, 2 epochs, batch 8 questions, LR 5e-6, smoothing 0.1, paired augmentation. This changes several factors as an exploratory improvement; do not attribute gains to one factor alone.
 - 30 local tests passed, including paired-label correctness, held-out phrasing separation and actual smoothed training loss without changing caller labels. A tiny full GPT-2 pipeline smoke run also exercises the new selection objective before launching C3.
 
-## Experiment C3: paired propositions with smoothing (RUNNING — inspect first)
+## Experiment C3: paired propositions with smoothing (complete; improved probes)
 
 - Started 2026-09-21 01:05 local, detached PID **11164**. PID file: workspace `work/candidate-paired-v3.pid`; launch manifest: `work/candidate-paired-v3-launch.json`. C2 PID 85800 has exited.
 - Code revision: `fab9908498a2e051bf162c0d3c24eca1ecb195ee`. Runtime remains workspace `work/venv-mlx/bin/python`.
@@ -108,3 +108,21 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - Logs: workspace `work/candidate-paired-v3.log`; checkpoints/progress/report: `runs/candidate-paired-v3`. Calibration/test disabled. Do not finalize while still selecting experiments.
 - Before launch: all 30 local tests passed; full-GPT2 smoke run completed two updates, saved/reloaded, evaluated both selection groups, and verified the combined objective numerically. The tiny smoke output is diagnostic only, not a quality benchmark.
 - After C3: check both canonical NLL and each probe. The old C2 canonical average is 1.2684; its combined canonical/probe objective is about 1.4957. C1's majority-like predictions have lower raw NLL than C2, so compare accuracy and instruction behavior alongside NLL rather than claiming every change is an improvement.
+
+### C3 outcome
+
+- Completed around 01:55 local, total 2,947.51 seconds (49m08s). PID 11164 exited normally. Report: `docs/benchmarks/candidate-paired-v3.json`; retained checkpoint: `runs/candidate-paired-v3/best`.
+- Epoch 1 selected: canonical mean NLL 0.9348, instruction-balanced selection score 0.7298. Epoch 2 worsened to canonical NLL 1.0174 / balanced score 0.7673. Again, more epochs did not help probability quality.
+- Epoch 1 canonical accuracy: sentiment 70.18%, positive 82.91%, five-level rating 50.18%. Canonical NLL remains worse than fixed-head baseline B (0.7748).
+- Probe accuracy: positive paraphrase 82.91%, negative paraphrase 85.64%, not-positive 64.18%. Corresponding NLL: 0.4287, 0.4360, 0.7097. This improves substantially over C2's probe failures, but negation is still weaker.
+- Warm short-input inference mean 23.17 ms, ten candidates. Calibration and test remain untouched for candidate models.
+- Next: run a selection-only negation wording diagnostic before deciding another learning change. Preserve C3; it is currently the strongest candidate-interface prototype under the balanced selection objective. Do not infer broad domain competence from sentiment results.
+
+### C3 negation wording diagnostic
+
+- Selection-only comparison of five semantically related questions, report `docs/benchmarks/candidate-v3-negation-diagnostic.json`. No calibration or test touched.
+- For negative reviews, the familiar not-positive question classified 95.43% correctly and a short unseen wording 91.78%; adding the probe's neutral-return-true clause dropped this to 51.14%. Lowercasing NOT dropped it further to 39.73%, so case normalization is not a fix.
+- The explicit negative-or-neutral question was only 22.86% correct on neutral reviews. The model is sensitive to clause wording and does not reliably compose boundary instructions.
+- C4 adds `--augmentation boundary`: compatible positive/negative/neutral return-true/false clauses on all three predicates and their complements, both before and after the base question, with NOT case variation. A quarter of rows retain short questions. Exact development-probe questions remain excluded from training templates.
+- Retain C3 as the current best candidate. C4 will continue from its epoch 1 for just one epoch (previous second epochs repeatedly worsened NLL), LR 3e-6, smoothing 0.15. Treat this as an exploratory combined intervention, not a controlled estimate of one technique.
+- All 31 local tests passed, including boundary-target consistency and full-cycle held-out-phrase checks.

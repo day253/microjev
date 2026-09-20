@@ -47,8 +47,8 @@ PROPOSITION_PAIRS = (
 
 
 def requests_from_rows(rows, augment=False, augmentation="legacy"):
-    if augmentation not in ("legacy", "paired"):
-        raise ValueError("augmentation must be legacy or paired")
+    if augmentation not in ("legacy", "paired", "boundary"):
+        raise ValueError("augmentation must be legacy, paired or boundary")
     requests = []
     for i, row in enumerate(rows):
         questions, labels = copy.deepcopy(SCHEMA), dict(row["labels"])
@@ -71,7 +71,7 @@ def requests_from_rows(rows, augment=False, augmentation="legacy"):
             # Random candidate order is unnecessary for this architecture, but exercise it.
             if variant % 2:
                 questions["sentiment"]["criteria"] = dict(reversed(list(questions["sentiment"]["criteria"].items())))
-            if augmentation == "paired":
+            if augmentation in ("paired", "boundary"):
                 predicate, phrasing = i % 3, (i // 3) % 4
                 positive, complement = PROPOSITION_PAIRS[predicate][phrasing]
                 expected = (rating >= 3, rating <= 1, rating == 2)[predicate]
@@ -79,6 +79,25 @@ def requests_from_rows(rows, augment=False, augmentation="legacy"):
                 labels["positive"] = expected
                 questions["complement"] = {"type": "noul", "instructions": complement}
                 labels["complement"] = not expected
+                if augmentation == "boundary":
+                    # Train compatible boundary clauses on all predicates, not just
+                    # the wording that failed in the development probes.
+                    if (i // 12) % 4:
+                        category = (i // 48) % 3
+                        name = ("positive", "negative", "neutral")[category]
+                        templates = ("For a {name} review, the answer is {truth}.",
+                                     "A {name} opinion counts as {truth}.",
+                                     "If the text is {name}, return {truth}.")
+                        template = templates[(i // 144) % len(templates)]
+                        for key, true_on_category in (("positive", predicate == category),
+                                                      ("complement", predicate != category)):
+                            clause = template.format(name=name, truth=str(true_on_category).lower())
+                            original = questions[key]["instructions"]
+                            questions[key]["instructions"] = (clause + " " + original if i % 2
+                                                               else original + " " + clause)
+                    if (i // 6) % 2:
+                        for key in ("positive", "complement"):
+                            questions[key]["instructions"] = questions[key]["instructions"].replace(" not ", " NOT ")
         requests.append({"state": row["text"], "questions": questions, "labels": labels})
     return requests
 
@@ -109,7 +128,7 @@ def main():
     parser.add_argument("--batch-size", type=int, default=4, help="questions per update, each expanded into candidates")
     parser.add_argument("--learning-rate", type=float, default=1e-5)
     parser.add_argument("--label-smoothing", type=float, default=0.0)
-    parser.add_argument("--augmentation", choices=("legacy", "paired"), default="legacy")
+    parser.add_argument("--augmentation", choices=("legacy", "paired", "boundary"), default="legacy")
     parser.add_argument("--selection-objective", choices=("canonical", "instruction-balanced"), default="canonical")
     parser.add_argument("--max-length", type=int, default=192)
     parser.add_argument("--seed", type=int, default=42)
