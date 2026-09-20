@@ -1,0 +1,331 @@
+{
+  "dataset": {
+    "source": "https://huggingface.co/datasets/SetFit/sst5",
+    "revision": "e51bdcd8cd3a30da231967c1a249ba59361279a3",
+    "raw_sha256": {
+      "train": "46bde4fb5abc93ffbadfa9a9f67de17c08a2f535cfb5756c59188d070434f433",
+      "dev": "4369df4d4229e736fa734af49b342c7d6002c4d8514d9c206a5aa26edc620b79",
+      "test": "1384216112a34f3d70b6fa210762f3399bb080410c0456ac6e54a5cb413f04b2"
+    },
+    "counts": {
+      "train": 8544,
+      "test": 2210,
+      "selection": 550,
+      "calibration": 551
+    },
+    "dev_shuffle_seed": 42,
+    "labels": "All three heads are supervised projections of the same SST-5 label; not independent tasks."
+  },
+  "config": {
+    "base_model": "openai-community/gpt2@607a30d783dfa663caf39e06633721c8d4cfcd7e",
+    "data_dir": "data/sst5",
+    "output": "runs/gpt2-sst5",
+    "epochs": 3,
+    "batch_size": 8,
+    "learning_rate": 2e-05,
+    "max_length": 128,
+    "seed": 42
+  },
+  "training": {
+    "steps": 3204,
+    "seconds": 500.4910759580089,
+    "first_loss": 4.932547092437744,
+    "last_loss": 0.3013651371002197,
+    "mean_loss": 0.5447132058811377
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "training_loss": 0.8160574916568811,
+      "selection_nll": 0.774826365495264,
+      "selection": {
+        "rows": 550,
+        "questions": {
+          "sentiment": {
+            "accuracy": 0.7381818181818182,
+            "nll": 0.7022301675367113,
+            "brier": 0.3947982106062379
+          },
+          "positive": {
+            "accuracy": 0.8145454545454546,
+            "nll": 0.453862220402717,
+            "brier": 0.2772326385157213
+          },
+          "rating": {
+            "accuracy": 0.52,
+            "nll": 1.1683867085463637,
+            "brier": 0.6281375038288037
+          }
+        }
+      }
+    },
+    {
+      "epoch": 2,
+      "training_loss": 0.5150223635764939,
+      "selection_nll": 0.8343978702997134,
+      "selection": {
+        "rows": 550,
+        "questions": {
+          "sentiment": {
+            "accuracy": 0.7236363636363636,
+            "nll": 0.7655371471784835,
+            "brier": 0.39744361573795706
+          },
+          "positive": {
+            "accuracy": 0.8272727272727273,
+            "nll": 0.48750705933926186,
+            "brier": 0.2620190562375911
+          },
+          "rating": {
+            "accuracy": 0.49636363636363634,
+            "nll": 1.2501494043813948,
+            "brier": 0.6435765017062618
+          }
+        }
+      }
+    },
+    {
+      "epoch": 3,
+      "training_loss": 0.3030597624100382,
+      "selection_nll": 1.3006725386955356,
+      "selection": {
+        "rows": 550,
+        "questions": {
+          "sentiment": {
+            "accuracy": 0.6945454545454546,
+            "nll": 1.2711663274732912,
+            "brier": 0.5101219039331444
+          },
+          "positive": {
+            "accuracy": 0.8236363636363636,
+            "nll": 0.8384205775699043,
+            "brier": 0.3176730735762332
+          },
+          "rating": {
+            "accuracy": 0.4727272727272727,
+            "nll": 1.7924307110434115,
+            "brier": 0.7791543488157746
+          }
+        }
+      }
+    }
+  ],
+  "best_epoch": 1,
+  "temperatures": {
+    "sentiment": 1.0,
+    "positive": 1.5,
+    "rating": 1.0
+  },
+  "calibration_before": {
+    "rows": 551,
+    "questions": {
+      "sentiment": {
+        "accuracy": 0.7259528130671506,
+        "nll": 0.6675049003612457,
+        "brier": 0.38604240679963436
+      },
+      "positive": {
+        "accuracy": 0.8548094373865699,
+        "nll": 0.36342689326653715,
+        "brier": 0.22030606033577654
+      },
+      "rating": {
+        "accuracy": 0.5045372050816697,
+        "nll": 1.1400257463311638,
+        "brier": 0.6299769427111177
+      }
+    }
+  },
+  "calibration_after": {
+    "rows": 551,
+    "questions": {
+      "sentiment": {
+        "accuracy": 0.7259528130671506,
+        "nll": 0.6675049003612457,
+        "brier": 0.38604240679963436
+      },
+      "positive": {
+        "accuracy": 0.8548094373865699,
+        "nll": 0.35855042308085033,
+        "brier": 0.2191577861569961
+      },
+      "rating": {
+        "accuracy": 0.5045372050816697,
+        "nll": 1.1400257463311638,
+        "brier": 0.6299769427111177
+      }
+    }
+  },
+  "test": {
+    "rows": 2210,
+    "questions": {
+      "sentiment": {
+        "accuracy": 0.7570135746606335,
+        "nll": 0.6039782600397993,
+        "brier": 0.3453833216138048
+      },
+      "positive": {
+        "accuracy": 0.8692307692307693,
+        "nll": 0.3297382052565015,
+        "brier": 0.1976233900000643
+      },
+      "rating": {
+        "accuracy": 0.5235294117647059,
+        "nll": 1.0902021229718517,
+        "brier": 0.6020879354123908
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "A wonderful film with moving performances and a brilliant story.",
+      "result": {
+        "model": "gpt2-jevlite",
+        "answers": {
+          "sentiment": {
+            "type": "choice",
+            "confidence": 0.9725255179979374,
+            "choice": "positive",
+            "probabilities": {
+              "negative": 0.0004377972390933504,
+              "neutral": 0.004051575049381605,
+              "positive": 0.9955106277115251
+            }
+          },
+          "positive": {
+            "type": "noul",
+            "noul": 0.9725526208594538
+          },
+          "rating": {
+            "type": "score",
+            "confidence": 0.7157481787855356,
+            "score": 3.8374981839160234,
+            "probabilities": {
+              "0": 0.00025931255670733397,
+              "1": 0.0003540551351798051,
+              "2": 0.0038734152727908423,
+              "3": 0.15265556990602633,
+              "4": 0.8428576471292958
+            },
+            "legend": {
+              "0": "Very negative",
+              "1": "Negative",
+              "2": "Neutral",
+              "3": "Positive",
+              "4": "Very positive"
+            }
+          }
+        },
+        "metadata": {
+          "source": "openai-community/gpt2@607a30d783dfa663caf39e06633721c8d4cfcd7e",
+          "backend": "mlx",
+          "parameters": 124447498,
+          "input_tokens": 12,
+          "calibration": "temperature_fitted",
+          "confidence_method": "one_minus_normalized_entropy"
+        }
+      }
+    },
+    {
+      "text": "A tedious and disappointing movie that wastes its talented cast.",
+      "result": {
+        "model": "gpt2-jevlite",
+        "answers": {
+          "sentiment": {
+            "type": "choice",
+            "confidence": 0.740443947392398,
+            "choice": "negative",
+            "probabilities": {
+              "negative": 0.9276428975116221,
+              "neutral": 0.06421261123296162,
+              "positive": 0.008144491255416346
+            }
+          },
+          "positive": {
+            "type": "noul",
+            "noul": 0.052036201671400974
+          },
+          "rating": {
+            "type": "score",
+            "confidence": 0.39763572459211793,
+            "score": 0.6443158409800288,
+            "probabilities": {
+              "0": 0.45749906404612706,
+              "1": 0.454946247254738,
+              "2": 0.07625730875938667,
+              "3": 0.008334543552475466,
+              "4": 0.0029628363872727733
+            },
+            "legend": {
+              "0": "Very negative",
+              "1": "Negative",
+              "2": "Neutral",
+              "3": "Positive",
+              "4": "Very positive"
+            }
+          }
+        },
+        "metadata": {
+          "source": "openai-community/gpt2@607a30d783dfa663caf39e06633721c8d4cfcd7e",
+          "backend": "mlx",
+          "parameters": 124447498,
+          "input_tokens": 12,
+          "calibration": "temperature_fitted",
+          "confidence_method": "one_minus_normalized_entropy"
+        }
+      }
+    },
+    {
+      "text": "The movie has some good scenes, but the rest is ordinary.",
+      "result": {
+        "model": "gpt2-jevlite",
+        "answers": {
+          "sentiment": {
+            "type": "choice",
+            "confidence": 0.1628473614552658,
+            "choice": "neutral",
+            "probabilities": {
+              "negative": 0.3077978348820406,
+              "neutral": 0.5826282452476738,
+              "positive": 0.10957391987028567
+            }
+          },
+          "positive": {
+            "type": "noul",
+            "noul": 0.25542484208298577
+          },
+          "rating": {
+            "type": "score",
+            "confidence": 0.28406955901954556,
+            "score": 1.6845541917747142,
+            "probabilities": {
+              "0": 0.02709966075866435,
+              "1": 0.4300711754604413,
+              "2": 0.3811727727628316,
+              "3": 0.1544880932836412,
+              "4": 0.007168297734421514
+            },
+            "legend": {
+              "0": "Very negative",
+              "1": "Negative",
+              "2": "Neutral",
+              "3": "Positive",
+              "4": "Very positive"
+            }
+          }
+        },
+        "metadata": {
+          "source": "openai-community/gpt2@607a30d783dfa663caf39e06633721c8d4cfcd7e",
+          "backend": "mlx",
+          "parameters": 124447498,
+          "input_tokens": 14,
+          "calibration": "temperature_fitted",
+          "confidence_method": "one_minus_normalized_entropy"
+        }
+      }
+    }
+  ],
+  "total_seconds": 522.9455062079942,
+  "checkpoint": "runs/gpt2-sst5/best",
+  "limitations": "English movie sentiment only. Fixed schema. Three labels derived from one source label. Separate heads need not be logically consistent. Test results are not Jev capability claims."
+}

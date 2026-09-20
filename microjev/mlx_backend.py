@@ -141,7 +141,7 @@ def make_step(model, learning_rate):
 
 
 def fit(model, tokenizer, rows, mode="full", epochs=3, batch_size=4,
-        learning_rate=2e-5, max_length=128, seed=42, callback=None):
+        learning_rate=2e-5, max_length=128, seed=42, callback=None, epoch_callback=None):
     if epochs < 1 or batch_size < 1 or not math.isfinite(learning_rate) or learning_rate <= 0:
         raise ValueError("epochs, batch_size and learning_rate must be positive")
     encoded = encode_rows(model, tokenizer, rows, max_length)
@@ -151,6 +151,8 @@ def fit(model, tokenizer, rows, mode="full", epochs=3, batch_size=4,
     step = make_step(model, learning_rate)
     rng, losses, start = random.Random(seed), [], time.perf_counter()
     for epoch in range(epochs):
+        model.train()
+        epoch_start = len(losses)
         order = list(range(len(encoded)))
         rng.shuffle(order)
         for offset in range(0, len(order), batch_size):
@@ -161,6 +163,9 @@ def fit(model, tokenizer, rows, mode="full", epochs=3, batch_size=4,
             losses.append(loss)
             if callback:
                 callback(len(losses), epoch + 1, loss)
+        if epoch_callback:
+            epoch_losses = losses[epoch_start:]
+            epoch_callback(epoch + 1, sum(epoch_losses) / len(epoch_losses))
     return {"steps": len(losses), "seconds": time.perf_counter() - start,
             "first_loss": losses[0], "last_loss": losses[-1],
             "mean_loss": sum(losses) / len(losses)}

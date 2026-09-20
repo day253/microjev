@@ -1,0 +1,26 @@
+{
+  "sentiment": {
+    "type": "choice",
+    "instructions": "Classify the sentiment of the English movie review.",
+    "criteria": {
+      "negative": "Very negative or negative",
+      "neutral": "Neutral",
+      "positive": "Positive or very positive"
+    }
+  },
+  "positive": {
+    "type": "noul",
+    "instructions": "Is the sentiment positive or very positive? Neutral counts as false."
+  },
+  "rating": {
+    "type": "score",
+    "instructions": "Rate sentiment on the Stanford SST-5 scale.",
+    "criteria": [
+      "Very negative",
+      "Negative",
+      "Neutral",
+      "Positive",
+      "Very positive"
+    ]
+  }
+}

@@ -76,6 +76,14 @@ Choice 标签是候选项名称；Score 标签是从 0 开始的整数等级；N
 
 ## 时间预估与实测
 
+需要真实标注数据训练时，使用 [SST-5 训练说明](docs/sst5.md)：固定版本下载 Stanford 影评情感数据，分开做训练、检查点选择、温度校准和最终测试。
+
+```bash
+.venv/bin/python -m microjev.sst5 --epochs 3 --batch-size 8 --output runs/gpt2-sst5
+```
+
+它按每轮选择集平均 NLL 保留最佳模型，每轮保存一次完整检查点。最终离线推理使用 `--model runs/gpt2-sst5/best`。
+
 2026-09-20，在 **M4 Pro、48 GB 内存**上，以 MLX 0.32.2、float32、batch=4、序列长度=128 测试 GPT-2 主干加三个决策头，共 **124,445,960 参数**。预热 3 步，测量 10 步，每步同步 GPU 参数与优化器更新：
 
 - 全量微调平均 **0.139 秒/步**，约 **3,686 padded tokens/s**；峰值活跃内存约 **2.87 GiB**。
@@ -92,6 +100,8 @@ Choice 标签是候选项名称；Score 标签是从 0 开始的整数等级；N
 ```
 
 ## 演示训练结果与限制
+
+真实 SST-5 基线已训练完成：8,544 条训练数据、3 epoch，总耗时 **8 分 43 秒**。按独立选择集保留第一轮，另用 551 条数据校准；2,210 条测试数据上三分类情感 **75.70%**、是否正面 **86.92%**、五级情感 **52.35%**。这些都是同一情感标签的不同投影。[完整报告](docs/benchmarks/sst5-training.json)
 
 已实际加载 GPT-2 预训练权重并全量微调 **288 条英文合成工单、3 epoch、216 步**，训练耗时 **20.6 秒**。这里按 batch 内最长文本动态 padding，文本比 128 tokens 短，所以快于上面的定长外推。
 
@@ -111,9 +121,9 @@ Choice 标签是候选项名称；Score 标签是从 0 开始的整数等级；N
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-18 项本机测试覆盖：标量自动微分、Transformer 梯度校验、真实训练收敛、float 前向一致性、checkpoint 往返、温度拟合、输出类型、CLI、MLX padding 不变性、冻结主干和全量更新、离线保存加载。
+测试覆盖：标量自动微分、Transformer 梯度校验、真实训练收敛、float 前向一致性、checkpoint 往返、温度拟合、输出类型、CLI、MLX padding 不变性、冻结主干和全量更新、离线保存加载、SST-5 标签映射。
 
-GitHub CI 在 Python 3.9 / 3.12 / 3.14 上运行纯 Python 测试；未安装 MLX 时跳过 GPU 后端测试。MLX 18 项测试在 Apple Silicon 本地运行。
+GitHub CI 在 Python 3.9 / 3.12 / 3.14 上运行纯 Python 测试；未安装 MLX 时跳过 GPU 后端测试。GPU 后端测试在 Apple Silicon 本地运行。
 
 主要文件：`mlx_backend.py` 为 GPT-2 决策模型；`mlx_cli.py` 为训练与推理；`benchmark.py` 为速度基准；`model.py` 和 `autograd.py` 为纯 Python 教学版；`schema.py` 为共享输出约束。
 
