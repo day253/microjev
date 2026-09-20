@@ -6,6 +6,8 @@
 
 加载 GPT-2 预训练权重，用 MLX 训练结构化决策头，直接输出 **Choice / Noul / Score**。提供全量微调、仅训练决策头、模型保存与离线加载、概率校准和本机速度基准。另附一个零依赖的纯 Python 教学实现。
 
+新增[动态候选打分器](docs/candidate.md)：运行时输入状态、问题和候选描述，由同一个 GPT-2 标量打分头输出分布。已通过候选换序、问题 ID 改名、混合候选数量等本机测试；真实数据训练实验进行中，能力范围以实测报告为准。
+
 这是独立项目，受 [microgpt](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95) 和 [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) 启发。没有使用 Jev 权重，不是 Jev 内部架构或 RLCD 的复现。
 
 ## Apple Silicon 快速开始
@@ -43,6 +45,8 @@ python3 -m microjev demo --steps 300 --output runs/tiny.json
 - **Score**：返回有序等级分布及其期望 `sum(i * p[i])`。三个等级的范围为 0–2。
 
 一次编码输入，所有决策头读同一个隐藏向量；不需要生成或解析文本 JSON。返回的 Python 字典由程序按类型构造。
+
+以上是固定头后端 `microjev-mlx` 的路径。新后端 `microjev-candidate` 分别编码状态、问题与每个候选的组合，支持动态问题与候选，因此计算量随候选数增加；详见[架构和命令](docs/candidate.md)。
 
 Choice 和 Score 的 confidence 使用本项目定义的 `1 - normalized_entropy`。它不是正确率，也不声称与 TypeSafe 的 confidence 算法相同。校准使用 validation 集拟合每个问题的 softmax 温度，不能保证分布外概率可靠。
 
@@ -107,7 +111,7 @@ Choice 标签是候选项名称；Score 标签是从 0 开始的整数等级；N
 
 18 条未见过的测试改写中：意图分类 **17/18**、紧急度 **9/18**、影响等级 **13/18**。训练误差很低，但紧急度泛化不足，验证集上拟合温度也没有解决。这个结果只证明流程可运行，不是业务可靠性证明。[完整训练报告](docs/benchmarks/gpt2-demo.json)
 
-- **固定 schema**：问题和候选项由训练确定。instructions 与候选描述只是元数据，不会作为指令编码；运行时不能传任意新问题或新候选项。
+- **固定头的 schema**：`microjev-mlx` 的问题和候选项由训练确定，instructions 与候选描述只是元数据。`microjev-candidate` 会读取运行时指令和候选，但尚不能据此声称具备通用指令能力。
 - **语言与数据**：默认 GPT-2 主要面向英文；示例仅为合成数据。中文和真实业务需要合适的基座、标注数据及独立评估。
 - **长度**：默认最多 128 个 GPT-2 BPE tokens，包含末尾 EOS；超长输入报错，不静默截断。模型最多支持 1024 个位置。
 - **训练实现**：使用 MLX-LM 的 GPT-2 主干（LayerNorm、GELU、绝对位置编码）。该实现没有原始 GPT-2 训练时的 dropout；这里是预训练权重的决策微调，不声称逐项复现原始预训练配方。

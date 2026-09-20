@@ -33,7 +33,24 @@ User objective: improve GPT-2 124M on Apple Silicon toward Jev-style typed proba
 - Offline-ready checkpoint: `runs/gpt2-sst5/best`; published report: `docs/benchmarks/sst5-training.json`.
 - All 20 local tests passed after the runner changes.
 
-## Next experiment
+## Experiment C1: shared candidate scorer (running)
+
+- Started around 2026-09-21 00:00 local. Runtime tool session at launch: 20052; check processes/logs, not just the session ID.
+- Implemented `candidate.py`, `candidate_sst5.py`, `candidate_cli.py`, `candidate_finalize.py`; all 28 local tests passed before launch.
+- Command: `python -u -m microjev.candidate_sst5 --base-model ../../work/gpt2-pretrained --data-dir ../../work/sst5 --output runs/candidate-pilot-v1 --train-limit 1024 --selection-limit 550 --epochs 2 --batch-size 4 --learning-rate 1e-5`.
+- Starts from original GPT-2, not the already fine-tuned baseline. 1,024 reviews -> 3,072 questions; 1,536 updates. Train question variants include positive/negative/neutral/not-negative propositions and reversed score scales.
+- Logs: workspace `work/candidate-pilot-v1.log`; reports/checkpoints: `runs/candidate-pilot-v1`. Initial measured updates around 0.25 seconds each, roughly 7 minutes plus validation/probes/save. Test disabled; calibration untouched.
+- Evaluate selection NLL and additional unseen instruction/negation probes. Preserve all results, including failures. The fixed-head baseline remains available.
+
+## Next experiments and finalization
+
+After C1 completes, inspect `training_report.json` and compare ONLY selection metrics and instruction probes. If learning is stable, run a bounded full-data candidate experiment at a conservative learning rate, recording original or warm-start source. Do not launch two GPU jobs. Prefer learning improvements over adding API surface.
+
+Candidate experiments default to no calibration and no test. Choose the final candidate checkpoint using selection results; then run `python -m microjev.candidate_finalize --model runs/<selected>/best --output runs/candidate-final --data-dir ../../work/sst5` once. It calibrates on the distinct 551-row split and tests once without retraining. Stop tuning after consulting that final test.
+
+For each completed run, publish a sanitized report in `docs/benchmarks/`, update this log, and commit/push code/docs after necessary tests. The heartbeat runs every 30 minutes through 08:00 local; bounded caffeinate PID 77958 expires then. Preserve this protocol and stay quiet unless there is a meaningful change.
+
+## Architectural objective
 
 Build a shared scalar scorer over GPT-2 representations of state, question and candidate text. Softmax across each question's candidate scores yields a variable-length Choice distribution; two candidate scores can implement Noul; ordered candidates can implement Score. Candidate names/order must not be hard-coded into separate classifier weights.
 
