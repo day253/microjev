@@ -6,7 +6,7 @@
 
 加载 GPT-2 预训练权重，用 MLX 训练结构化决策头，直接输出 **Choice / Noul / Score**。提供全量微调、仅训练决策头、模型保存与离线加载、概率校准和本机速度基准。另附一个零依赖的纯 Python 教学实现。
 
-新增[动态候选打分器](docs/candidate.md)：运行时输入状态、问题和候选描述，由同一个 GPT-2 标量打分头输出分布。已通过候选换序、问题 ID 改名、混合候选数量等本机测试。首个 1,024 条数据实验表现弱于固定头基线，正在改进；接口测试通过不代表判断可靠。[实验报告](docs/benchmarks/candidate-pilot-v1.json)
+新增[动态候选打分器](docs/candidate.md)：运行时输入状态、问题和候选描述，由同一个 GPT-2 标量打分头输出分布。已通过候选换序、问题 ID 改名、混合候选数量等本机测试。全量 C2 在选择集上三分类 71.27%、正面命题 83.64%，但否定命题探针仅 24.36%，概率也过于自信；正在改进配对问题训练。接口测试通过不代表判断可靠。[实验报告](docs/benchmarks/candidate-full-v2.json)
 
 这是独立项目，受 [microgpt](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95) 和 [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) 启发。没有使用 Jev 权重，不是 Jev 内部架构或 RLCD 的复现。
 

@@ -72,7 +72,7 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - 120 updates / 35.95 seconds. Training-set accuracy reached 100% for all three question types; NLL 0.0002 / 0.0010 / 0.0009. Confirms optimization can learn this objective, not evidence of generalization. No checkpoint retained.
 - Published report: `docs/benchmarks/candidate-overfit-check.json`.
 
-## Experiment C2: full-data candidate scorer (RUNNING — inspect first)
+## Experiment C2: full-data candidate scorer (complete; overconfident and weak negation)
 
 - Started 2026-09-21 00:08 local, detached PID **85800**. Check process identity and log before any GPU work; do not duplicate. PID file: workspace `work/candidate-full-v2.pid`; launch manifest: `work/candidate-full-v2-launch.json`.
 - Code revision: `5314f84a15e6ef0c49324975c42fce3f5ce6cdad` (subsequent docs commits do not change its implementation).
@@ -81,3 +81,19 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - Logs: workspace `work/candidate-full-v2.log`; reports and saved epochs: `runs/candidate-full-v2`. After completion inspect `training_report.json`. Test evaluation and calibration are disabled.
 - Estimate around 35–45 minutes; use the actual progress log to refine. All full-data training and selection/probe sequences were checked to fit: max 113 training tokens, max 97 selection/probe tokens (limit 192).
 - On completion, compare selection NLL and unseen instruction probes with C1 and fixed-head baseline. If worth improving, make the next bounded experiment; preserve both baselines. Only finalize/calibrate/test after model selection is finished.
+
+### C2 outcome
+
+- Completed around 00:50 local; total 2,501.85 seconds (41m42s), training loop including epoch evaluation/save 2,487.03 seconds. Detached PID 85800 has exited.
+- Selection mean NLL by epoch: 1.2684, 1.9515. Retained epoch 1. It learned classification, but further training worsened probability quality.
+- Selected checkpoint: sentiment accuracy 71.27% / NLL 1.2733; positive accuracy 83.64% / NLL 0.7488; rating accuracy 48.73% / NLL 1.7831. Baseline B remains better on canonical NLL (0.7748 average).
+- Selection instruction probes: positive paraphrase 54.00% / NLL 1.0106, negative paraphrase 62.91% / NLL 0.6860, not-positive 24.36% / NLL 3.4725. Negation is a concrete failure; do not describe this model as generally following instructions.
+- Warm inference mean 23.04 ms for one short input with ten candidates. Report: `docs/benchmarks/candidate-full-v2.json`; retained model: `runs/candidate-full-v2/best`. No candidate calibration or test consulted.
+
+## C3 preparation: paired propositions and smoothing
+
+- The next bounded experiment addresses C2's observed errors: each training review gets one proposition and its logical complement; both labels come from the same original sentiment annotation. Four alternative phrasings for each of positive, negative and neutral, including favorable/unfavorable wording. Probe strings remain disjoint from training templates.
+- Optional label smoothing uses `(1-epsilon) * target + epsilon / candidates` on training targets only. Evaluation remains on original labels; input records are not mutated. Defaults preserve older experiments.
+- New `--selection-objective instruction-balanced` averages canonical mean NLL and the three held-out-phrasing probe NLLs. They are selection diagnostics repeatedly used for development, not an independent final instruction-following test. `selection_nll` remains canonical; `selection_score` explicitly records the chosen objective.
+- Plan: initialize from C2 epoch 1, reset optimizer, full 8,544 reviews, 2 epochs, batch 8 questions, LR 5e-6, smoothing 0.1, paired augmentation. This changes several factors as an exploratory improvement; do not attribute gains to one factor alone.
+- 30 local tests passed, including paired-label correctness, held-out phrasing separation and actual smoothed training loss without changing caller labels. A tiny full GPT-2 pipeline smoke run also exercises the new selection objective before launching C3.

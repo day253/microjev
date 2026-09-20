@@ -12,7 +12,43 @@ from pathlib import Path
 from .sst5 import SCHEMA, prepare
 
 
-def requests_from_rows(rows, augment=False):
+PROPOSITION_PAIRS = (
+    (
+        ("Is the sentiment positive or very positive? Neutral counts as false.",
+         "Is the sentiment not positive? Negative and neutral both count as true."),
+        ("Does this movie review have positive sentiment?",
+         "Does this movie review lack positive sentiment?"),
+        ("Is the author's opinion favorable toward the film?",
+         "Is the author's opinion NOT favorable toward the film?"),
+        ("Would you classify the review as a positive evaluation?",
+         "Would you classify the review as anything other than a positive evaluation?"),
+    ),
+    (
+        ("Is the sentiment negative or very negative? Neutral counts as false.",
+         "Is the sentiment not negative? Neutral and positive count as true."),
+        ("Does this movie review have negative sentiment?",
+         "Does this movie review lack negative sentiment?"),
+        ("Is the author's opinion unfavorable toward the film?",
+         "Is the author's opinion NOT unfavorable toward the film?"),
+        ("Would you classify the review as a negative evaluation?",
+         "Would you classify the review as anything other than a negative evaluation?"),
+    ),
+    (
+        ("Is the sentiment neutral?",
+         "Is the sentiment not neutral? Positive or negative counts as true."),
+        ("Does this movie review have neutral sentiment?",
+         "Does this movie review lack neutral sentiment?"),
+        ("Is the author's opinion neither positive nor negative?",
+         "Is the author's opinion positive or negative rather than neutral?"),
+        ("Would you classify the review as a neutral evaluation?",
+         "Would you classify the review as anything other than a neutral evaluation?"),
+    ),
+)
+
+
+def requests_from_rows(rows, augment=False, augmentation="legacy"):
+    if augmentation not in ("legacy", "paired"):
+        raise ValueError("augmentation must be legacy or paired")
     requests = []
     for i, row in enumerate(rows):
         questions, labels = copy.deepcopy(SCHEMA), dict(row["labels"])
@@ -35,12 +71,20 @@ def requests_from_rows(rows, augment=False):
             # Random candidate order is unnecessary for this architecture, but exercise it.
             if variant % 2:
                 questions["sentiment"]["criteria"] = dict(reversed(list(questions["sentiment"]["criteria"].items())))
+            if augmentation == "paired":
+                predicate, phrasing = i % 3, (i // 3) % 4
+                positive, complement = PROPOSITION_PAIRS[predicate][phrasing]
+                expected = (rating >= 3, rating <= 1, rating == 2)[predicate]
+                questions["positive"]["instructions"] = positive
+                labels["positive"] = expected
+                questions["complement"] = {"type": "noul", "instructions": complement}
+                labels["complement"] = not expected
         requests.append({"state": row["text"], "questions": questions, "labels": labels})
     return requests
 
 
 def instruction_probes(rows):
-    """Unseen phrasings on selection data, including a negated proposition."""
+    """Held-out training phrasings, repeatedly used for model selection, not final test."""
     result = []
     for row in rows:
         rating = row["labels"]["rating"]
@@ -64,6 +108,9 @@ def main():
     parser.add_argument("--epochs", type=int, default=2)
     parser.add_argument("--batch-size", type=int, default=4, help="questions per update, each expanded into candidates")
     parser.add_argument("--learning-rate", type=float, default=1e-5)
+    parser.add_argument("--label-smoothing", type=float, default=0.0)
+    parser.add_argument("--augmentation", choices=("legacy", "paired"), default="legacy")
+    parser.add_argument("--selection-objective", choices=("canonical", "instruction-balanced"), default="canonical")
     parser.add_argument("--max-length", type=int, default=192)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--calibrate", action="store_true", help="Only after choosing the final experiment")
@@ -71,6 +118,8 @@ def main():
     args = parser.parse_args()
     if args.epochs < 1 or args.batch_size < 1 or args.train_limit < 0 or args.selection_limit < 1:
         parser.error("invalid epochs, batch size or dataset limit")
+    if not math.isfinite(args.label_smoothing) or not 0 <= args.label_smoothing < 1:
+        parser.error("label-smoothing must be finite and in [0, 1)")
     if args.evaluate_test and not args.calibrate:
         parser.error("final test requires --calibrate")
     output = Path(args.output)
@@ -86,17 +135,19 @@ def main():
     random.Random(args.seed).shuffle(rows)
     if args.train_limit:
         rows = rows[:args.train_limit]
-    train = requests_from_rows(rows, augment=True)
+    train = requests_from_rows(rows, augment=True, augmentation=args.augmentation)
     selection_rows = splits["selection"][:args.selection_limit]
     selection = requests_from_rows(selection_rows)
     probes = instruction_probes(selection_rows)
     mx.random.seed(args.seed)
     if args.source_kind == "candidate":
         model, tokenizer = CandidateDecision.load(args.base_model)
+        model.source = str(args.base_model)
     else:
         model, tokenizer = CandidateDecision.from_pretrained(args.base_model, decision_checkpoint=args.source_kind == "fixed")
-    total_steps = math.ceil(3 * len(train) / args.batch_size) * args.epochs
-    best, reports = {"nll": float("inf"), "epoch": None}, []
+    total_questions = sum(len(request["questions"]) for request in train)
+    total_steps = math.ceil(total_questions / args.batch_size) * args.epochs
+    best, reports = {"score": float("inf"), "epoch": None}, []
     training_started = time.perf_counter()
 
     def progress(step, epoch, loss):
@@ -108,17 +159,24 @@ def main():
     def finish_epoch(epoch, loss):
         metrics = evaluate(model, tokenizer, selection, args.max_length)
         nll = sum(q["nll"] for q in metrics["questions"].values()) / len(SCHEMA)
+        probe_metrics = None
+        score = nll
+        if args.selection_objective == "instruction-balanced":
+            probe_metrics = evaluate(model, tokenizer, probes, args.max_length)
+            probe_nll = sum(q["nll"] for q in probe_metrics["questions"].values()) / len(probe_metrics["questions"])
+            score = (nll + probe_nll) / 2
         model.save(output / "checkpoints" / f"epoch-{epoch}", tokenizer)
-        if nll < best["nll"]:
-            best.update(nll=nll, epoch=epoch)
-        reports.append({"epoch": epoch, "training_loss": loss, "selection_nll": nll, "selection": metrics})
+        if score < best["score"]:
+            best.update(score=score, epoch=epoch)
+        reports.append({"epoch": epoch, "training_loss": loss, "selection_nll": nll, "selection": metrics,
+                        "selection_score": score, "instruction_probes": probe_metrics})
         (output / "progress.json").write_text(json.dumps({"config": vars(args), "best": best, "epochs": reports}, indent=2) + "\n")
-        print(f"saved epoch {epoch}; selection_nll={nll:.4f}; best_epoch={best['epoch']}", file=sys.stderr, flush=True)
+        print(f"saved epoch {epoch}; selection_nll={nll:.4f}; selection_score={score:.4f}; best_epoch={best['epoch']}", file=sys.stderr, flush=True)
 
     print(json.dumps({"train_rows": len(train), "selection_rows": len(selection), "steps": total_steps, "test_enabled": args.evaluate_test}), file=sys.stderr, flush=True)
     training = fit(model, tokenizer, train, epochs=args.epochs, batch_size=args.batch_size,
                    learning_rate=args.learning_rate, max_length=args.max_length, seed=args.seed,
-                   callback=progress, epoch_callback=finish_epoch)
+                   callback=progress, epoch_callback=finish_epoch, label_smoothing=args.label_smoothing)
     del model
     mx.clear_cache()
     model, tokenizer = CandidateDecision.load(output / "checkpoints" / f"epoch-{best['epoch']}")

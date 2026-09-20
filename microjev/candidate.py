@@ -145,10 +145,17 @@ def decision_loss(model, tokens, lengths, sizes, labels):
 
 
 def fit(model, tokenizer, requests, epochs=1, batch_size=4, learning_rate=1e-5,
-        max_length=192, seed=42, callback=None, epoch_callback=None):
+        max_length=192, seed=42, callback=None, epoch_callback=None, label_smoothing=0.0):
     if epochs < 1 or batch_size < 1 or not math.isfinite(learning_rate) or learning_rate <= 0:
         raise ValueError("epochs, batch_size and learning_rate must be positive")
+    if not math.isfinite(label_smoothing) or not 0 <= label_smoothing < 1:
+        raise ValueError("label_smoothing must be finite and in [0, 1)")
     encoded = encode_requests(model, tokenizer, requests, max_length)
+    if label_smoothing:
+        for group in encoded:
+            # Only training targets change; caller labels and evaluation stay hard.
+            count = len(group.target)
+            group.target = [(1 - label_smoothing) * p + label_smoothing / count for p in group.target]
     model.unfreeze()
     model.temperatures = {kind: 1.0 for kind in model.temperatures}
     model.calibration, model.calibration_scope = "unfitted", "none"

@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from dataclasses import replace
 
-from microjev.candidate_sst5 import instruction_probes, requests_from_rows
+from microjev.candidate_sst5 import PROPOSITION_PAIRS, instruction_probes, requests_from_rows
 from microjev.schema import targets
 from microjev.sst5 import convert
 
@@ -29,6 +29,22 @@ class CandidateDataTests(unittest.TestCase):
             labels = request["labels"]
             self.assertEqual(labels["not_positive"], not labels["positive_paraphrase"])
             targets(request["questions"], labels)
+
+    def test_paired_requests_balance_truth_and_preserve_probe_phrasings(self):
+        rows = [convert({"text": "review", "label": i % 5}) for i in range(60)]
+        original = copy.deepcopy(rows)
+        requests = requests_from_rows(rows, augment=True, augmentation="paired")
+        for i, request in enumerate(requests):
+            rating = rows[i]["labels"]["rating"]
+            expected = (rating >= 3, rating <= 1, rating == 2)[i % 3]
+            self.assertEqual(request["labels"]["positive"], expected)
+            self.assertEqual(request["labels"]["complement"], not expected)
+            self.assertEqual(len(request["questions"]), 4)
+            targets(request["questions"], request["labels"])
+        self.assertEqual(rows, original)
+        training_phrasings = {text for predicate in PROPOSITION_PAIRS for pair in predicate for text in pair}
+        probe_phrasings = {q["instructions"] for q in instruction_probes(rows[:1])[0]["questions"].values()}
+        self.assertFalse(training_phrasings & probe_phrasings)
 
 
 HAS_MLX = importlib.util.find_spec("mlx") is not None and importlib.util.find_spec("mlx_lm") is not None
@@ -126,3 +142,18 @@ class CandidateMLXTests(unittest.TestCase):
             predict(self.model, self.tokenizer, "a " * 60, self.schema, max_length=64)
         with self.assertRaises(ValueError):
             predict(self.model, self.tokenizer, "a", {"invalid": {"type": "choice", "criteria": {"only": "a"}}}, max_length=64)
+
+    def test_label_smoothing_changes_training_loss_without_mutating_labels(self):
+        from microjev.candidate import fit, logits_for_requests
+        from microjev.autograd import cross_entropy
+        original = copy.deepcopy(self.requests)
+        results = logits_for_requests(self.model, self.tokenizer, self.requests, max_length=64)
+        expected = sum(cross_entropy(values, [0.8 * p + 0.2 / len(group.target) for p in group.target])
+                       for group, values in results) / len(results)
+        report = fit(self.model, self.tokenizer, self.requests, epochs=1, batch_size=6,
+                     max_length=64, label_smoothing=0.2)
+        self.assertAlmostEqual(report["first_loss"], expected, places=5)
+        self.assertEqual(self.requests, original)
+        for smoothing in (-0.1, 1.0, float("nan")):
+            with self.assertRaisesRegex(ValueError, "label_smoothing"):
+                fit(self.model, self.tokenizer, self.requests, max_length=64, label_smoothing=smoothing)

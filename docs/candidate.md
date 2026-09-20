@@ -58,3 +58,23 @@ HF_HUB_OFFLINE=1 .venv/bin/python -m microjev.candidate_cli \
 1,024 条影评的 C1 实验共耗时 377 秒。最佳轮次在 550 条选择集上的三分类准确率为 37.09%、正面命题 58.91%、五分类 22.73%，平均 NLL 1.1713；明显弱于固定头基线。改写与否定问题的结果也未证明可靠的指令理解。该 checkpoint 仅用于保留实验，不能作为最终能力成果。十候选、三问题的短输入推理，预热后五次平均 23.18 ms。[完整报告](benchmarks/candidate-pilot-v1.json)
 
 随后做了优化诊断：从固定头基线主干开始，16 条训练影评、48 个问题变体、120 次更新，在约 36 秒内达到训练集三个类型全部 100% 准确率。这个刻意过拟合检查表明优化链路可学习，不能当成泛化结果。[诊断报告](benchmarks/candidate-overfit-check.json)。正在用同一来源主干、全量 8,544 条训练数据进行 C2 实验。
+
+## C2 结果与下一轮改进
+
+全量训练 C2 用时 41 分 42 秒，选择第一轮。选择集准确率：三分类 71.27%、正面命题 83.64%、五分类 48.73%。平均 NLL 为 1.2684；第二轮恶化至 1.9515，模型过度自信。更关键的是，否定命题探针准确率仅 24.36%，说明会做情感分类不等于理解动态问题。[C2 完整报告](benchmarks/candidate-full-v2.json)
+
+针对这些已观察到的错误，增加两个可选训练设置：
+
+- `--augmentation paired`：同一条影评同时提供命题及其逻辑补集，覆盖正面、负面、中性及多种措辞；每条影评共四个问题。原有 `legacy` 仍为默认值，可复现 C1/C2。
+- `--label-smoothing 0.1`：仅在训练中把 10% 目标质量分配到均匀分布，抑制概率饱和。原始标签和评估标签不变。
+
+`--selection-objective instruction-balanced` 用标准问题和改写/否定探针的平均 NLL 共同选择模型。探针反复用于开发选择，不能再当成独立的最终能力评测；它们的精确问句仍未进入训练模板。默认 `canonical` 保持原有选择方式。新配置需要通过验证结果证明有效，不能提前声称已经改善。
+
+```bash
+.venv/bin/python -m microjev.candidate_sst5 \
+  --base-model runs/candidate-full-v2/best --source-kind candidate \
+  --data-dir data/sst5 --output runs/candidate-paired-v3 \
+  --train-limit 0 --epochs 2 --batch-size 8 --learning-rate 5e-6 \
+  --augmentation paired --label-smoothing 0.1 \
+  --selection-objective instruction-balanced
+```
