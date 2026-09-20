@@ -33,7 +33,7 @@ User objective: improve GPT-2 124M on Apple Silicon toward Jev-style typed proba
 - Offline-ready checkpoint: `runs/gpt2-sst5/best`; published report: `docs/benchmarks/sst5-training.json`.
 - All 20 local tests passed after the runner changes.
 
-## Experiment C1: shared candidate scorer (running)
+## Experiment C1: shared candidate scorer (complete; insufficient learning)
 
 - Started around 2026-09-21 00:00 local. Runtime tool session at launch: 20052; check processes/logs, not just the session ID.
 - Implemented `candidate.py`, `candidate_sst5.py`, `candidate_cli.py`, `candidate_finalize.py`; all 28 local tests passed before launch.
@@ -55,3 +55,29 @@ For each completed run, publish a sanitized report in `docs/benchmarks/`, update
 Build a shared scalar scorer over GPT-2 representations of state, question and candidate text. Softmax across each question's candidate scores yields a variable-length Choice distribution; two candidate scores can implement Noul; ordered candidates can implement Score. Candidate names/order must not be hard-coded into separate classifier weights.
 
 Start with a bounded validation experiment and candidate permutation tests. Use a reproducible small training subset before committing to the full dataset. A successful API contract is necessary but not proof of generalization to unseen domains or questions. The straightforward candidate-batched implementation repeats the state and is not Jev's shared-context parallel sampler; measure its cost honestly.
+
+### C1 outcome
+
+- Code revision: `5314f84a15e6ef0c49324975c42fce3f5ce6cdad`; completed around 00:06 local. Total 377.20 seconds, training loop plus epoch evaluations 367.79 seconds.
+- Selection mean NLL: epoch 1 = 1.2278, epoch 2 = 1.1713; selected epoch 2. This is worse than the fixed-head baseline (0.7748) and even the uniform-distribution average NLL (1.1337).
+- Selection accuracy: sentiment 37.09%, positive 58.91%, five-level rating 22.73%. Noul is effectively close to the majority baseline.
+- Unseen question probes: positive paraphrase 59.27% / NLL 1.4029; negative paraphrase 60.00% / NLL 1.4875; not-positive 58.91% / NLL 0.6817. These do not demonstrate robust instruction following.
+- Ten-candidate / three-question inference: mean 23.18 ms over five warm runs, short self-authored English example. This is not an end-to-end service benchmark.
+- Report `docs/benchmarks/candidate-pilot-v1.json`; checkpoint `runs/candidate-pilot-v1/best`. No calibration/test consulted.
+- Next: verify the model can intentionally overfit a small training subset, then use the proven SST-5 fine-tuned backbone and full training split for a longer candidate run. This changes source/data/LR together as an exploratory improvement, not a controlled attribution of cause.
+
+## Diagnostic: small-set memorization (complete)
+
+- Started from the retained SST-5 fixed-head backbone, randomly initialized shared scalar head, 16 shuffled training reviews / 48 question variants, 20 epochs, batch 8 questions, LR 1e-4, seed 42.
+- 120 updates / 35.95 seconds. Training-set accuracy reached 100% for all three question types; NLL 0.0002 / 0.0010 / 0.0009. Confirms optimization can learn this objective, not evidence of generalization. No checkpoint retained.
+- Published report: `docs/benchmarks/candidate-overfit-check.json`.
+
+## Experiment C2: full-data candidate scorer (RUNNING — inspect first)
+
+- Started 2026-09-21 00:08 local, detached PID **85800**. Check process identity and log before any GPU work; do not duplicate. PID file: workspace `work/candidate-full-v2.pid`; launch manifest: `work/candidate-full-v2-launch.json`.
+- Code revision: `5314f84a15e6ef0c49324975c42fce3f5ce6cdad` (subsequent docs commits do not change its implementation).
+- Command: `python -u -m microjev.candidate_sst5 --base-model runs/gpt2-sst5/best --source-kind fixed --data-dir ../../work/sst5 --output runs/candidate-full-v2 --train-limit 0 --selection-limit 550 --epochs 2 --batch-size 8 --learning-rate 2e-5`.
+- Source selection is based on Baseline B validation quality; its backbone previously trained on the same 8,544 training reviews. New shared head, all parameters trainable, full data, 25,632 question variants / epoch, 6,408 total updates. Optimizer starts fresh.
+- Logs: workspace `work/candidate-full-v2.log`; reports and saved epochs: `runs/candidate-full-v2`. After completion inspect `training_report.json`. Test evaluation and calibration are disabled.
+- Estimate around 35–45 minutes; use the actual progress log to refine. All full-data training and selection/probe sequences were checked to fit: max 113 training tokens, max 97 selection/probe tokens (limit 192).
+- On completion, compare selection NLL and unseen instruction probes with C1 and fixed-head baseline. If worth improving, make the next bounded experiment; preserve both baselines. Only finalize/calibrate/test after model selection is finished.

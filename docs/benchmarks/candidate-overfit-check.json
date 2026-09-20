@@ -1,0 +1,63 @@
+{
+  "purpose": "Intentional overfit sanity check on 16 training reviews; not a generalization result. Checkpoint not retained.",
+  "source": "runs/gpt2-sst5/best",
+  "config": {
+    "epochs": 20,
+    "batch_size": 8,
+    "learning_rate": 0.0001,
+    "seed": 42
+  },
+  "before": {
+    "questions": {
+      "sentiment": {
+        "count": 16,
+        "accuracy": 0.375,
+        "nll": 1.0485348399455958,
+        "brier": 0.6326621088720189
+      },
+      "positive": {
+        "count": 16,
+        "accuracy": 0.4375,
+        "nll": 0.7030317759702711,
+        "brier": 0.5097785657611893
+      },
+      "rating": {
+        "count": 16,
+        "accuracy": 0.25,
+        "nll": 1.57687070697497,
+        "brier": 0.787142123255231
+      }
+    }
+  },
+  "training": {
+    "steps": 120,
+    "questions": 48,
+    "seconds": 35.94563720806036,
+    "first_loss": 1.151118516921997,
+    "last_loss": 0.00039674449362792075,
+    "mean_loss": 0.5845421762657073
+  },
+  "after": {
+    "questions": {
+      "sentiment": {
+        "count": 16,
+        "accuracy": 1.0,
+        "nll": 0.00020191328488708312,
+        "brier": 8.952957893492663e-07
+      },
+      "positive": {
+        "count": 16,
+        "accuracy": 1.0,
+        "nll": 0.0009978169475667283,
+        "brier": 1.6690763036227862e-05
+      },
+      "rating": {
+        "count": 16,
+        "accuracy": 1.0,
+        "nll": 0.0009113303839300425,
+        "brier": 2.392197825591542e-05
+      }
+    }
+  },
+  "code_revision": "5314f84a15e6ef0c49324975c42fce3f5ce6cdad"
+}
