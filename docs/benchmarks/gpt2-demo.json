@@ -1,0 +1,100 @@
+{
+  "backend": "mlx",
+  "mode": "full",
+  "rows": 288,
+  "training": {
+    "steps": 216,
+    "seconds": 20.639495000010356,
+    "first_loss": 2.8412163257598877,
+    "last_loss": 5.600493750534952e-05,
+    "mean_loss": 0.27192358293447155
+  },
+  "temperatures": {
+    "intent": 0.25,
+    "urgent": 5.0,
+    "severity": 0.25
+  },
+  "validation": {
+    "rows": 18,
+    "questions": {
+      "intent": {
+        "accuracy": 1.0,
+        "nll": 3.728986400468764e-05,
+        "brier": 3.0160910164301084e-08
+      },
+      "urgent": {
+        "accuracy": 0.6111111111111112,
+        "nll": 0.5821444541363099,
+        "brier": 0.4140852821187225
+      },
+      "severity": {
+        "accuracy": 1.0,
+        "nll": 0.013461345995059402,
+        "brier": 0.002951843988587323
+      }
+    }
+  },
+  "test": {
+    "rows": 18,
+    "questions": {
+      "intent": {
+        "accuracy": 0.9444444444444444,
+        "nll": 0.06746724469008525,
+        "brier": 0.04624297183910651
+      },
+      "urgent": {
+        "accuracy": 0.5,
+        "nll": 1.389242512451656,
+        "brier": 0.8654176566618871
+      },
+      "severity": {
+        "accuracy": 0.7222222222222222,
+        "nll": 3.701072266789257,
+        "brier": 0.5282712416202936
+      }
+    }
+  },
+  "prediction": {
+    "model": "gpt2-124m-jevlite",
+    "answers": {
+      "intent": {
+        "type": "choice",
+        "confidence": 0.9999999999975865,
+        "choice": "refund",
+        "probabilities": {
+          "refund": 0.999999999999915,
+          "bug": 8.430696235883192e-14,
+          "other": 8.180253655407494e-16
+        }
+      },
+      "urgent": {
+        "type": "noul",
+        "noul": 0.899714589927983
+      },
+      "severity": {
+        "type": "score",
+        "confidence": 0.9999999999996444,
+        "score": 1.9999999999999765,
+        "probabilities": {
+          "0": 1.181702805632498e-14,
+          "1": 8.446563606433478e-24,
+          "2": 0.9999999999999882
+        },
+        "legend": {
+          "0": "Minor inconvenience",
+          "1": "Partial disruption with workaround",
+          "2": "Work completely blocked"
+        }
+      }
+    },
+    "metadata": {
+      "source": "openai-community/gpt2 (local snapshot)",
+      "backend": "mlx",
+      "input_tokens": 23,
+      "calibration": "temperature_fitted",
+      "confidence_method": "one_minus_normalized_entropy"
+    }
+  },
+  "note": "Synthetic English paraphrase task, 18 held-out examples; not a real-world benchmark or Jev reproduction.",
+  "checkpoint": "runs/gpt2-demo"
+}

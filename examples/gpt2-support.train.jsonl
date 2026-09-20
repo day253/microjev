@@ -1,0 +1,288 @@
+{"text": "I want a refund for this purchase. There is no rush. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I want a refund for this purchase. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "I want a refund for this purchase. There is no rush. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. I want a refund for this purchase. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "I want a refund for this purchase. You can handle this whenever convenient. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I want a refund for this purchase. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "I want a refund for this purchase. You can handle this whenever convenient. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. I want a refund for this purchase. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Please return the money I paid. There is no rush. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Please return the money I paid. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Please return the money I paid. There is no rush. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. Please return the money I paid. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Please return the money I paid. You can handle this whenever convenient. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Please return the money I paid. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "Please return the money I paid. You can handle this whenever convenient. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. Please return the money I paid. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "I want a refund for this purchase. There is no rush. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I want a refund for this purchase. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "I want a refund for this purchase. There is no rush. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I want a refund for this purchase. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "I want a refund for this purchase. You can handle this whenever convenient. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I want a refund for this purchase. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "I want a refund for this purchase. You can handle this whenever convenient. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I want a refund for this purchase. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Please return the money I paid. There is no rush. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Please return the money I paid. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Please return the money I paid. There is no rush. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Please return the money I paid. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Please return the money I paid. You can handle this whenever convenient. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Please return the money I paid. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Please return the money I paid. You can handle this whenever convenient. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Please return the money I paid. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "I want a refund for this purchase. There is no rush. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I want a refund for this purchase. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "I want a refund for this purchase. There is no rush. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I want a refund for this purchase. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "I want a refund for this purchase. You can handle this whenever convenient. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I want a refund for this purchase. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "I want a refund for this purchase. You can handle this whenever convenient. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I want a refund for this purchase. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Please return the money I paid. There is no rush. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Please return the money I paid. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Please return the money I paid. There is no rush. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Please return the money I paid. There is no rush.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Please return the money I paid. You can handle this whenever convenient. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Please return the money I paid. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Please return the money I paid. You can handle this whenever convenient. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Please return the money I paid. You can handle this whenever convenient.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "I want a refund for this purchase. This needs immediate attention. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I want a refund for this purchase. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "I want a refund for this purchase. This needs immediate attention. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. I want a refund for this purchase. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "I want a refund for this purchase. Please handle this urgently. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I want a refund for this purchase. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "I want a refund for this purchase. Please handle this urgently. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. I want a refund for this purchase. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Please return the money I paid. This needs immediate attention. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Please return the money I paid. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Please return the money I paid. This needs immediate attention. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. Please return the money I paid. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Please return the money I paid. Please handle this urgently. Only a small inconvenience; I can keep working.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Please return the money I paid. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "Please return the money I paid. Please handle this urgently. The impact is minor and my work continues.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. Please return the money I paid. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "I want a refund for this purchase. This needs immediate attention. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I want a refund for this purchase. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "I want a refund for this purchase. This needs immediate attention. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I want a refund for this purchase. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "I want a refund for this purchase. Please handle this urgently. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I want a refund for this purchase. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "I want a refund for this purchase. Please handle this urgently. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I want a refund for this purchase. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Please return the money I paid. This needs immediate attention. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Please return the money I paid. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Please return the money I paid. This needs immediate attention. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Please return the money I paid. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Please return the money I paid. Please handle this urgently. Some features are unavailable but there is a workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Please return the money I paid. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Please return the money I paid. Please handle this urgently. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Please return the money I paid. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "I want a refund for this purchase. This needs immediate attention. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I want a refund for this purchase. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "I want a refund for this purchase. This needs immediate attention. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I want a refund for this purchase. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "I want a refund for this purchase. Please handle this urgently. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I want a refund for this purchase. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "I want a refund for this purchase. Please handle this urgently. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I want a refund for this purchase. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Please return the money I paid. This needs immediate attention. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Please return the money I paid. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Please return the money I paid. This needs immediate attention. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Please return the money I paid. This needs immediate attention.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Please return the money I paid. Please handle this urgently. All work is blocked and there is no workaround.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Please return the money I paid. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Please return the money I paid. Please handle this urgently. Nobody can work and everything is stopped.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Please return the money I paid. Please handle this urgently.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "The app crashes when I open it. There is no rush. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. The app crashes when I open it. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The app crashes when I open it. There is no rush. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. The app crashes when I open it. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The app crashes when I open it. You can handle this whenever convenient. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. The app crashes when I open it. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The app crashes when I open it. You can handle this whenever convenient. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. The app crashes when I open it. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "I cannot sign in because of an error. There is no rush. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I cannot sign in because of an error. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "I cannot sign in because of an error. There is no rush. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. I cannot sign in because of an error. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "I cannot sign in because of an error. You can handle this whenever convenient. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I cannot sign in because of an error. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "I cannot sign in because of an error. You can handle this whenever convenient. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. I cannot sign in because of an error. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "The app crashes when I open it. There is no rush. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. The app crashes when I open it. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "The app crashes when I open it. There is no rush. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. The app crashes when I open it. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "The app crashes when I open it. You can handle this whenever convenient. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. The app crashes when I open it. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "The app crashes when I open it. You can handle this whenever convenient. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. The app crashes when I open it. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "I cannot sign in because of an error. There is no rush. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I cannot sign in because of an error. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "I cannot sign in because of an error. There is no rush. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I cannot sign in because of an error. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "I cannot sign in because of an error. You can handle this whenever convenient. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I cannot sign in because of an error. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "I cannot sign in because of an error. You can handle this whenever convenient. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I cannot sign in because of an error. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "The app crashes when I open it. There is no rush. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. The app crashes when I open it. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "The app crashes when I open it. There is no rush. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. The app crashes when I open it. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "The app crashes when I open it. You can handle this whenever convenient. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. The app crashes when I open it. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "The app crashes when I open it. You can handle this whenever convenient. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. The app crashes when I open it. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "I cannot sign in because of an error. There is no rush. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I cannot sign in because of an error. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "I cannot sign in because of an error. There is no rush. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I cannot sign in because of an error. There is no rush.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "I cannot sign in because of an error. You can handle this whenever convenient. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I cannot sign in because of an error. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "I cannot sign in because of an error. You can handle this whenever convenient. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I cannot sign in because of an error. You can handle this whenever convenient.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "The app crashes when I open it. This needs immediate attention. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. The app crashes when I open it. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The app crashes when I open it. This needs immediate attention. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. The app crashes when I open it. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The app crashes when I open it. Please handle this urgently. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. The app crashes when I open it. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The app crashes when I open it. Please handle this urgently. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. The app crashes when I open it. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "I cannot sign in because of an error. This needs immediate attention. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I cannot sign in because of an error. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "I cannot sign in because of an error. This needs immediate attention. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. I cannot sign in because of an error. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "I cannot sign in because of an error. Please handle this urgently. Only a small inconvenience; I can keep working.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I cannot sign in because of an error. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "I cannot sign in because of an error. Please handle this urgently. The impact is minor and my work continues.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. I cannot sign in because of an error. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "The app crashes when I open it. This needs immediate attention. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. The app crashes when I open it. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "The app crashes when I open it. This needs immediate attention. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. The app crashes when I open it. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "The app crashes when I open it. Please handle this urgently. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. The app crashes when I open it. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "The app crashes when I open it. Please handle this urgently. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. The app crashes when I open it. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "I cannot sign in because of an error. This needs immediate attention. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I cannot sign in because of an error. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "I cannot sign in because of an error. This needs immediate attention. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I cannot sign in because of an error. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "I cannot sign in because of an error. Please handle this urgently. Some features are unavailable but there is a workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I cannot sign in because of an error. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "I cannot sign in because of an error. Please handle this urgently. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I cannot sign in because of an error. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "The app crashes when I open it. This needs immediate attention. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. The app crashes when I open it. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "The app crashes when I open it. This needs immediate attention. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. The app crashes when I open it. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "The app crashes when I open it. Please handle this urgently. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. The app crashes when I open it. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "The app crashes when I open it. Please handle this urgently. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. The app crashes when I open it. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "I cannot sign in because of an error. This needs immediate attention. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I cannot sign in because of an error. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "I cannot sign in because of an error. This needs immediate attention. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I cannot sign in because of an error. This needs immediate attention.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "I cannot sign in because of an error. Please handle this urgently. All work is blocked and there is no workaround.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I cannot sign in because of an error. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "I cannot sign in because of an error. Please handle this urgently. Nobody can work and everything is stopped.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I cannot sign in because of an error. Please handle this urgently.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "Where can I read the product documentation? There is no rush. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Where can I read the product documentation? There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Where can I read the product documentation? There is no rush. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. Where can I read the product documentation? There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Where can I read the product documentation? You can handle this whenever convenient. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Where can I read the product documentation? You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Where can I read the product documentation? You can handle this whenever convenient. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. Where can I read the product documentation? You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "I have a general question about your plans. There is no rush. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I have a general question about your plans. There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "I have a general question about your plans. There is no rush. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. I have a general question about your plans. There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "I have a general question about your plans. You can handle this whenever convenient. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I have a general question about your plans. You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "I have a general question about your plans. You can handle this whenever convenient. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "The impact is minor and my work continues. I have a general question about your plans. You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Where can I read the product documentation? There is no rush. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Where can I read the product documentation? There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Where can I read the product documentation? There is no rush. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Where can I read the product documentation? There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Where can I read the product documentation? You can handle this whenever convenient. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Where can I read the product documentation? You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Where can I read the product documentation? You can handle this whenever convenient. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Where can I read the product documentation? You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "I have a general question about your plans. There is no rush. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I have a general question about your plans. There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "I have a general question about your plans. There is no rush. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I have a general question about your plans. There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "I have a general question about your plans. You can handle this whenever convenient. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I have a general question about your plans. You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "I have a general question about your plans. You can handle this whenever convenient. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I have a general question about your plans. You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Where can I read the product documentation? There is no rush. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Where can I read the product documentation? There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Where can I read the product documentation? There is no rush. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Where can I read the product documentation? There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Where can I read the product documentation? You can handle this whenever convenient. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Where can I read the product documentation? You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Where can I read the product documentation? You can handle this whenever convenient. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Where can I read the product documentation? You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "I have a general question about your plans. There is no rush. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I have a general question about your plans. There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "I have a general question about your plans. There is no rush. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I have a general question about your plans. There is no rush.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "I have a general question about your plans. You can handle this whenever convenient. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I have a general question about your plans. You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "I have a general question about your plans. You can handle this whenever convenient. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I have a general question about your plans. You can handle this whenever convenient.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Where can I read the product documentation? This needs immediate attention. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Where can I read the product documentation? This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Where can I read the product documentation? This needs immediate attention. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. Where can I read the product documentation? This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Where can I read the product documentation? Please handle this urgently. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. Where can I read the product documentation? Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Where can I read the product documentation? Please handle this urgently. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. Where can I read the product documentation? Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "I have a general question about your plans. This needs immediate attention. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I have a general question about your plans. This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "I have a general question about your plans. This needs immediate attention. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. I have a general question about your plans. This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "I have a general question about your plans. Please handle this urgently. Only a small inconvenience; I can keep working.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Only a small inconvenience; I can keep working. I have a general question about your plans. Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "I have a general question about your plans. Please handle this urgently. The impact is minor and my work continues.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "The impact is minor and my work continues. I have a general question about your plans. Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Where can I read the product documentation? This needs immediate attention. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Where can I read the product documentation? This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Where can I read the product documentation? This needs immediate attention. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Where can I read the product documentation? This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Where can I read the product documentation? Please handle this urgently. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. Where can I read the product documentation? Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Where can I read the product documentation? Please handle this urgently. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. Where can I read the product documentation? Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "I have a general question about your plans. This needs immediate attention. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I have a general question about your plans. This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "I have a general question about your plans. This needs immediate attention. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I have a general question about your plans. This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "I have a general question about your plans. Please handle this urgently. Some features are unavailable but there is a workaround.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Some features are unavailable but there is a workaround. I have a general question about your plans. Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "I have a general question about your plans. Please handle this urgently. Work is partly disrupted, but I can use an alternative.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Work is partly disrupted, but I can use an alternative. I have a general question about your plans. Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Where can I read the product documentation? This needs immediate attention. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Where can I read the product documentation? This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "Where can I read the product documentation? This needs immediate attention. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Where can I read the product documentation? This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "Where can I read the product documentation? Please handle this urgently. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. Where can I read the product documentation? Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "Where can I read the product documentation? Please handle this urgently. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. Where can I read the product documentation? Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "I have a general question about your plans. This needs immediate attention. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I have a general question about your plans. This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "I have a general question about your plans. This needs immediate attention. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I have a general question about your plans. This needs immediate attention.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "I have a general question about your plans. Please handle this urgently. All work is blocked and there is no workaround.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "All work is blocked and there is no workaround. I have a general question about your plans. Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "I have a general question about your plans. Please handle this urgently. Nobody can work and everything is stopped.", "labels": {"intent": "other", "urgent": true, "severity": 2}}
+{"text": "Nobody can work and everything is stopped. I have a general question about your plans. Please handle this urgently.", "labels": {"intent": "other", "urgent": true, "severity": 2}}

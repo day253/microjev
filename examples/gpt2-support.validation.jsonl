@@ -1,0 +1,18 @@
+{"text": "I would like my payment refunded. Take your time; this is not urgent. This is a minor inconvenience and I can still work.", "labels": {"intent": "refund", "urgent": false, "severity": 0}}
+{"text": "I would like my payment refunded. Take your time; this is not urgent. Part of our work is disrupted; a workaround exists.", "labels": {"intent": "refund", "urgent": false, "severity": 1}}
+{"text": "I would like my payment refunded. Take your time; this is not urgent. Our work is completely blocked with no alternative.", "labels": {"intent": "refund", "urgent": false, "severity": 2}}
+{"text": "I would like my payment refunded. Please prioritize this immediately. This is a minor inconvenience and I can still work.", "labels": {"intent": "refund", "urgent": true, "severity": 0}}
+{"text": "I would like my payment refunded. Please prioritize this immediately. Part of our work is disrupted; a workaround exists.", "labels": {"intent": "refund", "urgent": true, "severity": 1}}
+{"text": "I would like my payment refunded. Please prioritize this immediately. Our work is completely blocked with no alternative.", "labels": {"intent": "refund", "urgent": true, "severity": 2}}
+{"text": "An application error prevents login. Take your time; this is not urgent. This is a minor inconvenience and I can still work.", "labels": {"intent": "bug", "urgent": false, "severity": 0}}
+{"text": "An application error prevents login. Take your time; this is not urgent. Part of our work is disrupted; a workaround exists.", "labels": {"intent": "bug", "urgent": false, "severity": 1}}
+{"text": "An application error prevents login. Take your time; this is not urgent. Our work is completely blocked with no alternative.", "labels": {"intent": "bug", "urgent": false, "severity": 2}}
+{"text": "An application error prevents login. Please prioritize this immediately. This is a minor inconvenience and I can still work.", "labels": {"intent": "bug", "urgent": true, "severity": 0}}
+{"text": "An application error prevents login. Please prioritize this immediately. Part of our work is disrupted; a workaround exists.", "labels": {"intent": "bug", "urgent": true, "severity": 1}}
+{"text": "An application error prevents login. Please prioritize this immediately. Our work is completely blocked with no alternative.", "labels": {"intent": "bug", "urgent": true, "severity": 2}}
+{"text": "Could you explain the available subscription plans? Take your time; this is not urgent. This is a minor inconvenience and I can still work.", "labels": {"intent": "other", "urgent": false, "severity": 0}}
+{"text": "Could you explain the available subscription plans? Take your time; this is not urgent. Part of our work is disrupted; a workaround exists.", "labels": {"intent": "other", "urgent": false, "severity": 1}}
+{"text": "Could you explain the available subscription plans? Take your time; this is not urgent. Our work is completely blocked with no alternative.", "labels": {"intent": "other", "urgent": false, "severity": 2}}
+{"text": "Could you explain the available subscription plans? Please prioritize this immediately. This is a minor inconvenience and I can still work.", "labels": {"intent": "other", "urgent": true, "severity": 0}}
+{"text": "Could you explain the available subscription plans? Please prioritize this immediately. Part of our work is disrupted; a workaround exists.", "labels": {"intent": "other", "urgent": true, "severity": 1}}
+{"text": "Could you explain the available subscription plans? Please prioritize this immediately. Our work is completely blocked with no alternative.", "labels": {"intent": "other", "urgent": true, "severity": 2}}

@@ -1,0 +1,24 @@
+{
+  "intent": {
+    "type": "choice",
+    "instructions": "工单属于哪种类型？",
+    "criteria": {
+      "refund": "退款",
+      "bug": "报错",
+      "other": "咨询"
+    }
+  },
+  "urgent": {
+    "type": "noul",
+    "instructions": "工单是否需要加急？"
+  },
+  "severity": {
+    "type": "score",
+    "instructions": "影响程度",
+    "criteria": [
+      "轻微",
+      "中等",
+      "严重"
+    ]
+  }
+}

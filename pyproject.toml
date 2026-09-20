@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "microjev"
+version = "0.1.0"
+description = "GPT-2 on Apple Silicon with typed probabilistic decisions, plus a pure-Python teaching model"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "day253"}]
+dependencies = []
+
+[project.optional-dependencies]
+mlx = ["mlx-lm==0.31.3; python_version >= '3.10' and sys_platform == 'darwin' and platform_machine == 'arm64'", "mlx==0.32.2; python_version >= '3.10' and sys_platform == 'darwin' and platform_machine == 'arm64'"]
+
+[project.scripts]
+microjev = "microjev.cli:main"
+microjev-mlx = "microjev.mlx_cli:main"
+
+[tool.setuptools.packages.find]
+include = ["microjev*"]

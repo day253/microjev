@@ -1,0 +1,24 @@
+{
+  "intent": {
+    "type": "choice",
+    "instructions": "Classify the customer's request.",
+    "criteria": {
+      "refund": "Request money back",
+      "bug": "Report a technical error",
+      "other": "Ask for information"
+    }
+  },
+  "urgent": {
+    "type": "noul",
+    "instructions": "Does the customer explicitly request urgent handling? Do not infer urgency from impact."
+  },
+  "severity": {
+    "type": "score",
+    "instructions": "Rate the explicitly stated operational impact.",
+    "criteria": [
+      "Minor inconvenience",
+      "Partial disruption with workaround",
+      "Work completely blocked"
+    ]
+  }
+}
