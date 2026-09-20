@@ -126,3 +126,13 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - C4 adds `--augmentation boundary`: compatible positive/negative/neutral return-true/false clauses on all three predicates and their complements, both before and after the base question, with NOT case variation. A quarter of rows retain short questions. Exact development-probe questions remain excluded from training templates.
 - Retain C3 as the current best candidate. C4 will continue from its epoch 1 for just one epoch (previous second epochs repeatedly worsened NLL), LR 3e-6, smoothing 0.15. Treat this as an exploratory combined intervention, not a controlled estimate of one technique.
 - All 31 local tests passed, including boundary-target consistency and full-cycle held-out-phrase checks.
+
+## Experiment C4: boundary clauses (RUNNING — inspect first)
+
+- Started 2026-09-21 02:06 local, detached PID **36346**. PID file: workspace `work/candidate-boundary-v4.pid`; launch manifest: `work/candidate-boundary-v4-launch.json`.
+- Code revision: `140464d30c48dd002ea92f5d7057e225afd00af1`. All previous training processes have exited.
+- Command: `python -u -m microjev.candidate_sst5 --base-model runs/candidate-paired-v3/best --source-kind candidate --data-dir ../../work/sst5 --output runs/candidate-boundary-v4 --train-limit 0 --selection-limit 550 --epochs 1 --batch-size 8 --learning-rate 3e-6 --label-smoothing 0.15 --augmentation boundary --selection-objective instruction-balanced`.
+- Continues C3's selected epoch 1 with a fresh optimizer. Full 8,544 reviews, 34,176 questions, 4,272 updates. Expected 25–35 minutes. Preflight encoded all 102,528 candidate sequences successfully; maximum 120 tokens, within limit 192.
+- Logs: workspace `work/candidate-boundary-v4.log`; checkpoint/progress/final report: `runs/candidate-boundary-v4`. Calibration/test disabled.
+- C3 remains the best candidate unless C4 selection evidence improves it. Reference C3 canonical NLL 0.9348, balanced selection score 0.7298, not-positive probe accuracy 64.18%. Repeat wording diagnostic on C4 only after the GPU training job exits.
+- Once model quality stabilizes, also investigate inference cost: batching candidates across questions and optional shared-prefix caching. Validate identical probabilities and candidate-order behavior before accepting an optimization; benchmark cached vs uncached with the same batching so gains are not misattributed. Never run GPU benchmarks concurrently with training.
