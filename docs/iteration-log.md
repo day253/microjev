@@ -173,3 +173,10 @@ Start with a bounded validation experiment and candidate permutation tests. Use 
 - Local `.venv` is an ignored symlink to the original workspace runtime; the package was reinstalled editable so `.venv/bin/microjev-candidate` works. This link is not committed. Fresh clones should create their own environment per README.
 - 34 local tests passed, plus the actual-model performance/equivalence benchmark and final offline CLI verification. Only docs and the local-environment ignore pattern changed after those tests; no broad repeat testing is necessary without a new concern.
 - Remaining overnight heartbeats: inspect this completion record and CI; do not retrain or retune against observed test scores. Stay quiet when unchanged. At the promised 08:00 morning handoff, give one concise summary pointing to the final model/model card and real test scope, then record `work/microjev-morning-summary-sent` relative to workspace to avoid duplicate morning summaries. Caffeinate PID 77958 expires automatically at 08:00.
+
+## Post-delivery CLI: interactive input (2026-09-21)
+
+- User requested continuous terminal input. Added `--interactive`, also the default when neither `--state` nor `--state-file` is supplied. Model/tokenizer/schema load once; each nonempty line produces an independent JSON result. `exit`, `quit`, EOF and Ctrl-C leave the session; overlong input reports an error and permits the next line.
+- Command: `HF_HUB_OFFLINE=1 .venv/bin/microjev-candidate --model runs/candidate-final --questions examples/dynamic.schema.json --interactive`.
+- Verified the actual frozen checkpoint with multiple positive/negative/Unicode inputs, empty lines, overlong-input recovery, both quit commands, automatic input mode, EOF and legacy `--state`. Verified the real terminal prompt and Ctrl-C exit. All 34 existing local tests passed in 0.967 seconds; `git diff --check` passed.
+- No training, weight changes, calibration or test-set evaluation in this update. Model metrics remain the frozen assessment above. Arbitrary text is accepted within the token limit; the example schema still asks movie sentiment questions, with quality validated only for English reviews.

@@ -4,6 +4,17 @@
 
 ## 立即运行
 
+连续输入模式，在本项目目录执行：
+
+```bash
+HF_HUB_OFFLINE=1 .venv/bin/microjev-candidate \
+  --model runs/candidate-final \
+  --questions examples/dynamic.schema.json \
+  --interactive
+```
+
+出现 `state>` 后输入文本并回车，每行独立输出一份 JSON。模型和问题定义只加载一次；空行跳过，输入 `exit` / `quit` 或按 Ctrl-D / Ctrl-C 退出。超长输入会报错并允许继续输入。省略 `--state`、`--state-file` 时也会自动进入此模式。可以输入任意文本，示例问题仍按影评情感解读；当前模型仅验证了英文影评能力。
+
 在本项目目录执行：
 
 ```bash
